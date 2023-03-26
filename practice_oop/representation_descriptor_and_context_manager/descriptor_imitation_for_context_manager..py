@@ -6,13 +6,13 @@ class Resource:
 
     def open(self, args):
         self.opened = True
-        match args.split():
-            case reading as r, *arg if r in ('r', 'rb'):
-                self.arg = f'Reading process... {" ".join(arg)}'
-            case writing as w, *arg if w in ('w', 'x', 'wb'):
-                self.arg = f'Writing process... {" ".join(arg)}'
-            case reading_and_writing as rw, *arg if rw in ('r+', 'w+'):
-                self.arg = f'Reading and writing... {" ".join(arg)}'
+        match args:
+            case reading as r if r[1] in ('r', 'rb'):
+                self.arg = f'Reading process... {" ".join(r)}'
+            case writing as w if w[1] in ('w', 'x', 'wb'):
+                self.arg = f'Writing process... {" ".join(r)}'
+            case reading_and_writing as rw if rw[1] in ('r+', 'w+'):
+                self.arg = f'Reading and writing... {" ".join(r)}'
             case _:
                 raise ValueError('Unknown argument')
 
@@ -27,15 +27,15 @@ class Resource:
     def action(self):
         print(self.arg)
 
-
-
-def successful_closure(): # Успешное закрытие дескриптора по окончанию работы с ним
+# Успешное закрытие дескриптора по окончанию работы с ним
+def successful_closure():
     resource = Resource()
     resource.open('w+ doing something')
     resource.action()
     resource.close()
 
-def unsuccessful_closure(): # Неуспешное закрытие дескриптора по окончанию работы с ним
+# Дескриптор не был закрыт, при возникновении исключения
+def unsuccessful_closure():
     resource = Resource()
     resource.open('w+ doing something')
     raise ValueError('Какая то ошибка')
@@ -54,7 +54,7 @@ def try_except_open(): # Обработка в надежной конструк
         if resource: # Истинность означает открытие файла
             resource.close()
 
-@contextmanager # Применение декоратора вместе с контекстным менеджером with для вызова
+@contextmanager # Применение декоратора контекстного менеджера
 def contextmanager_resource(*args):
     resource = None
     try:
