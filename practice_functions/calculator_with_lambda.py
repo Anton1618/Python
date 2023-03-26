@@ -3,7 +3,7 @@
 # Возвращает результат выполнения этой операции.
 # Если числа не целые или нет знака операции, то должно быть возбуждено исключение ValueError
 
-def calculator(expression):
+def calculate(expression):
     allowed = '+-/*'  # Допустимые значения для операций
     if not any(i in expression for i in
                allowed):  # Проверка наличия мат символов, в противном случае, применение функции не имеет смысла
@@ -28,6 +28,7 @@ def calculator(expression):
 
 
 if __name__ == '__main__':
-    print(calculator('2+2'))
-    print(calculator('2*0'))
-    print(calculator('2/1'))
+    print(calculate('2/2'))
+    print(calculate('2+2'))
+    print(calculate('2*0'))
+    print(calculate('2/1'))

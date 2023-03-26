@@ -31,6 +31,7 @@ class DataBase:
         self.database += data + '\n\n' if type(data) is str else ' '.join(map(str, data)) + '\n\n'
         print(f'Запись данных в БД выполнена')
 
+
 if __name__ == '__main__':
     db1 = DataBase('Anton', 1234, 80)
     print(f'ID соединения: {id(db1)}', db1())
