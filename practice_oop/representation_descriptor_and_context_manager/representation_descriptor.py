@@ -1,55 +1,62 @@
 class DescriptorResource:
-    database = 'Первоначальные данные'
     def __init__(self):
         self.opened = False
-
-    def open(self, args):
+    def open(self, file, mode=None):
+        if not mode: mode = 'r'
         self.opened = True
-        match args:
-            case reading as r if r[1] in ('r', 'rb'):
-                print()
-                self.arg = f'Reading process... {" ".join(r)}'
-            case writing as w if w[1] in ('w', 'x', 'wb'):
-                self.arg = f'Writing process... {" ".join(r)}'
-            case reading_and_writing as rw if rw[1] in ('r+', 'w+'):
-                self.arg = f'Reading and writing... {" ".join(r)}'
+        match mode:
+            case reading as r if r in ('r', 'rb'):
+                self.arg = 'R'
+            case writing as w if w in ('w', 'x', 'wb'):
+                self.arg = 'W'
+            case reading_and_writing as rw if rw in ('r+', 'w+'):
+                self.arg = 'RW'
             case _:
                 raise ValueError('Unknown argument')
-
     def close(self):
         print(f'Resource was closed')
         self.opened = False
-
     def __del__(self):
         if self.opened:
             print('Memory leak detected! Resource was not closed')
-
     def action(self):
-        print(self.arg)
+        if self.arg == 'R':
+            print('Reading process...')
+        if self.arg == 'W':
+            print('Writing process...')
+        if self.arg == 'RW':
+            print('Reading and writing process...')
 
-# Успешное закрытие дескриптора по окончанию работы с ним
-def successful_closure():
-    resource = Resource()
-    resource.open('w+ doing something')
+
+def simple_handling(*args):
+    '''Простая обработка дескриптора'''
+    resource = DescriptorResource()
+    resource.open(*args)
     resource.action()
     resource.close()
 
-# Дескриптор не был закрыт, при возникновении исключения
-def unsuccessful_closure():
-    resource = Resource()
-    resource.open('w+ doing something')
-    raise ValueError('Какая то ошибка')
-    resource.close()
-
-def try_except_open(): # Обработка в надежной конструкции try/except
-    resource = None
+# Обработка дескриптора в конструкции try/except/finally для гарантированного закрытия дескриптора
+def try_except_finally_handling(*args):
+    '''Обработка дескриптора конструкцией try/except/finally'''
+    resource = DescriptorResource()
     try:
-        resource = Resource()
-        resource.open('r hello, world!')
+        resource.open(*args)
         resource.action()
-        resource.open('abracadabra') # Намеренный вызов исключения
-    except: # Должны быть указаны конкретные исключения
+    except:
         raise
     finally:
-        if resource: # Истинность означает открытие файла
+        if resource:
             resource.close()
+
+if __name__ == '__main__':
+    print('# Небезопасная обработка дескриптора. Успешное закрытие дескриптора')
+    simple_handling('file.txt')
+    print()
+
+    # print('# Небезопасная обработка дескриптора. Закрытие дескриптора небыло произведено')
+    # simple_handling('file.txt', 'abracadabra')
+    # print()
+
+    print('# Успешное закрытие дескриптора, несмотря на возникновение ошибки в конструкции try/except/finally')
+    try_except_finally_handling('file.txt', 'abracadabra')
+    print()

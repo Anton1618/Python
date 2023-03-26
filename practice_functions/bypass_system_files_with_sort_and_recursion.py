@@ -18,6 +18,6 @@ def bypass_files(path, depth=1):
     for i in dir_lst:
         bypass_files(path+'/'+i, depth+1)
 
-
-learn_path = r'C:\Users\akram\YandexDisk\[Антон]\-- Книги\Эзотерика Психология Философия'
-bypass_files(learn_path)
+if __name__ == '__main__':
+    learn_path = r'C:\Users\akram\YandexDisk\[Антон]\-- Книги\Эзотерика Психология Философия'
+    bypass_files(learn_path)

@@ -1,6 +1,5 @@
 import math
 
-
 # Декоратор производной функции
 # def decorator(func):
 #     def inner(x, *args, **kwargs):
@@ -8,7 +7,6 @@ import math
 #         res = (func(x + dx, *args, **kwargs) - func(x, *args, **kwargs)) / dx
 #         return res
 #     return inner
-
 
 # Для возможности передачи аргумента точности декоратору
 def df_decorator(dx=0.01):
@@ -18,7 +16,6 @@ def df_decorator(dx=0.01):
             return res
         return inner
     return decorator
-
 
 
 #@decorator  # Декоратор без возможности передачи аргумента
