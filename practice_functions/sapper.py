@@ -16,10 +16,11 @@ def collectionGenerator():
         matrix.append(row)
     return matrix
 
+
 # Генерация игрового поля
 collection = collectionGenerator()
 
-# Игворое поле для отображения игроку. Изначально засекречено. При открытии элементов, они отображаются на карте
+# Игровое поле для отображения игроку. Изначально засекречено. При открытии элементов, они отображаются на карте
 player_collection = [['*' for j in range(len(collection[i]))] for i in range(len(collection))]
 
 
@@ -34,11 +35,12 @@ def check(game_collection):
     """Вывод значений игрового поля"""
     st = '{:5}' * len(game_collection)
     for i in game_collection:
-            print(st.format(*i))
+        print(st.format(*i))
+
 
 def findVal(index_row, index_col):
     cir = correct_index_row = index_row - 1
-    cic = correct_index_col = index_col -1
+    cic = correct_index_col = index_col - 1
     result = player_collection[cir][cic] = collection[cir][cic]
     return result
 

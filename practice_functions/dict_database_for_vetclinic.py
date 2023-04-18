@@ -26,7 +26,7 @@ def create_id():
     all_array = range(last_key + 1)  # Формирование диапазона по последний ключ включительно
     actual_keys = pets.keys()  # Получение значений текущих ключей
     symmetric_difference = list(
-        set(all_array) ^ set(actual_keys))  # Перевод в множества и получение симетрической разности
+        set(all_array) ^ set(actual_keys))  # Перевод в множества и получение симметрической разности
     if symmetric_difference:
         created = symmetric_difference[0]
     else:
@@ -77,11 +77,8 @@ def write_info():
 
 
 def create():
-    """Создавать новую запись о питомце"""
-    pets.update({
-        create_id():
-            write_info()
-    })
+    """Создать новую запись о питомце"""
+    pets.update({create_id(): write_info()})
 
 
 def update():
@@ -102,17 +99,17 @@ def delete():
 
 
 def get_suffix(age):
-    """Формирование суфикса для возраста"""
+    """Формирование суффикса для возраста"""
     age = int(age)
-    simple_n = age % 10
     if age in (11, 12, 13, 14):
         return 'лет'
-    elif simple_n == 0 or simple_n > 4:
-        return 'лет'
-    elif simple_n == 1:
+    num_age = age % 10
+    if num_age == 1:
         return 'год'
-    else:
+    elif 1 < num_age < 5:
         return 'года'
+    elif num_age == 0 or 4 < num_age <= 9:
+        return 'лет'
 
 
 def pets_list():
@@ -125,19 +122,18 @@ def pets_list():
 
 
 def menu():
-    while (commands := input(
-            f"""
-            Доступные программы
-            create - {create.__doc__}
-            read - {read.__doc__}
-            update - {update.__doc__}
-            delete - {delete.__doc__}
-            stop - Для выхода из меню
-            Введите название программы: """
-    )) != "stop":
+    while (commands := input('\n'
+                             f'Выберите программу для работы:\n'
+                             f'create - {create.__doc__}\n'
+                             f'read - {read.__doc__}\n'
+                             f'update - {update.__doc__}\n'
+                             f'delete - {delete.__doc__}\n'
+                             f'stop - Для выхода из меню\n'
+                             f'Введите название программы: \n'
+                             )) != 'stop':
         if commands in globals():
             globals()[commands]()
 
 
-
-menu()
+if __name__ == '__main__':
+    menu()

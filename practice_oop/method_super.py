@@ -1,3 +1,7 @@
+'''' Логика класса может быть выделена в отдельный класс, например внутренний.
+Большой код разбивается на меньшие классы, которые работают во взаимодействии друг с другом.
+Например разросшиеся методы работы с аккумулятором'''
+
 class Auto:
     def __init__(self, name, brand, year):
         self.name = name
@@ -6,6 +10,7 @@ class Auto:
 
     def start(self):
         print('wroom wroom')
+
     def stop(self):
         print('...')
 
@@ -13,6 +18,7 @@ class ElectricCar(Auto):
     def __init__(self, name, model, year):
         super().__init__(name, model, year)
         self.battery = ElectricCar.Battery()
+
     class Battery:
         def __init__(self, battery_size=75):
             self.battery_size = battery_size

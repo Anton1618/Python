@@ -1,25 +1,88 @@
-def char_count(st: str) -> list:
-    '''Сортировка подсчетом со смещением для латинского алфавита'''
-    offset_char_lst = [0]*26
-    for i in st.lower():
-        if 'a'<i<'z':
-            index_offset = ord(i) - 97
-            offset_char_lst[index_offset] += 1
+'''Сортировка со смещением для строковых данных. Осуществляется относительно наименьшей кодовой точки Unicode
+-- Построение сохраняющего массива
+    -- На основе универсального вычисления: максимальная кодовая точка - минимальная + 1.
+    Таким образом, сохраняющий массив = [0] * (max([ord(i) for i in a]) - min([ord(i) for i in a]) + 1)
+    Функция позволяет сортировать и подсчитывать любые переданные в неё данные
+    -- На примере: если известно, что обрабатывается латинский алфавит, то могут быть применены известные значения
+    Так, начальная для него кодовая точка - 65,
+    а сохраняющий список должен быть сформирован для 52 точек (большого и малого регистра)
+    + должны учитываться промежуточные символы кодировки, их 6.
+    Таким образом, сохраняющий массив = [0] * (52 + 6)
+    Функция позволяет исключить любые сторонние значения в переданной строке
+-- Нахождение и подсчет элементов
+    В цикле применяется проверка полученного элемента на вхождение в обрабатываемый диапазон элементов
+    К сохраняющему массиву осуществляется обращение по индексу,
+    который равен вычислению: числовое значение элемента минус значение смещения.
+    При соответствии элемента, к его значению в сохраняющем массиве станет осуществляться приращение, выполняя счет поиска
+-- Получение результата
+    В цикле применяется проверка на накопленное значение каждого элемента, например, более 0 раз,
+    т.е. для получения результирующего массива не со всеми счетчиками,
+    а только с теми, для которых действительно было найдено значение.
+    К результирующему массиву осуществляется обращение по индексу,
+    который равен вычислению: числовое значение элемента в сохраняющем массиве плюс значение смещения
+    При соответствии элемента, значение будет добавлено в результирующий массив, как изначальное значение
+'''
+
+
+def char_count(st):
+    '''Универсальный подсчет и сортировка со смещением'''
+    if not isinstance(st, str):
+        raise ValueError('Аргумент должен быть строкой')
+    lst_count = [0] * ((endOffset := max([ord(i) for i in st]) + 1) - (startOffset := min([ord(i) for i in st])))
+    for i in st:
+        if startOffset <= ord(i) <= endOffset:
+            lst_count[ord(i) - startOffset] += 1
     result = []
-    for i in range(len(offset_char_lst)):
-        if offset_char_lst[i] > 0:
-            result.append((chr(i+97), offset_char_lst[i]))
+    for i in range(len(lst_count)):
+        if lst_count[i] > 0:
+            result.append((chr(i+startOffset), lst_count[i]))
     return result
 
+
+def char_count_latin(st):
+    '''Подсчет и сортировка со смещением только символов латинского алфавита'''
+    if not isinstance(st, str):
+        raise ValueError('Аргумент должен быть строкой')
+    lst_count = [0] * (52 + 6)
+    for i in st:
+        if 'a' <= i <= 'z' or 'A' <= i <= 'Z':
+            lst_count[ord(i) - 65] += 1
+    result = []
+    for i in range(len(lst_count)):
+        if lst_count[i] > 0:
+            result.append((chr(i+65), lst_count[i]))
+    return result
+
+
 if __name__ == '__main__':
-    assert char_count('Привет, Мир!') == []
-    assert char_count('aaaaa') == []
-    assert char_count('aaaaa zzzzzz') == []
-    assert char_count('1343400 2  23 423 4234 ') == []
-    assert char_count('aaaaa bbbbb') == [('b', 5)]
-    assert char_count('aaaaa 34 sdfds ') == [('d', 2), ('f', 1), ('s', 2)]
-    assert char_count('aaaaa bbbbb cccc') == [('b', 5), ('c', 4)]
-    assert char_count('aaaaa bbbbb cccc 11111') == [('b', 5), ('c', 4)]
-    assert char_count('qwerty qwerty qwerty') == [('e', 3), ('q', 3), ('r', 3), ('t', 3), ('w', 3), ('y', 3)]
-    assert char_count('Hello, World!') == [('d', 1), ('e', 1), ('h', 1), ('l', 3), ('o', 2), ('r', 1), ('w', 1)]
-    assert char_count('adgfrewgv25gbv253gvregwergvwregvwergfvwertq') == [('b', 1), ('d', 1), ('e', 6), ('f', 2), ('g', 8), ('q', 1), ('r', 6), ('t', 1), ('v', 6), ('w', 5)]
+    print(' Универсальный подсчет и сортировка со смещением '.center(80, '-'))
+    assert char_count('Привет, Мир!') == [(' ', 1), ('!', 1), (',', 1), ('М', 1), ('П', 1), ('в', 1), ('е', 1), ('и', 2), ('р', 2), ('т', 1)]
+    assert char_count('Hello, World!') == [(' ', 1), ('!', 1), (',', 1), ('H', 1), ('W', 1), ('d', 1), ('e', 1), ('l', 3), ('o', 2), ('r', 1)]
+    assert char_count('aaaaa') == [('a', 5)]
+    assert char_count('AAAAA') == [('A', 5)]
+    assert char_count('aaaaa zzzzzz') == [(' ', 1), ('a', 5), ('z', 6)]
+    assert char_count('AAAAA ZZZZZZ') == [(' ', 1), ('A', 5), ('Z', 6)]
+    assert char_count('1343400 2  23 423 4234 ') == [(' ', 6), ('0', 2), ('1', 1), ('2', 4), ('3', 5), ('4', 5)]
+    assert char_count('aaaaa bbbbb ccccc') == [(' ', 2), ('a', 5), ('b', 5), ('c', 5)]
+    assert char_count('aaaaa 34 sdfds ') == [(' ', 3), ('3', 1), ('4', 1), ('a', 5), ('d', 2), ('f', 1), ('s', 2)]
+    assert char_count('aaaaa bbbbb cccc 11111') == [(' ', 3), ('1', 5), ('a', 5), ('b', 5), ('c', 4)]
+    assert char_count('qwerty qwerty qwerty') == [(' ', 2), ('e', 3), ('q', 3), ('r', 3), ('t', 3), ('w', 3), ('y', 3)]
+    assert char_count('adgfrewgv25gbv253gvregwergvwregvwergfvwertq') == [('2', 2), ('3', 1), ('5', 2), ('a', 1), ('b', 1), ('d', 1), ('e', 6), ('f', 2), ('g', 8), ('q', 1), ('r', 6), ('t', 1), ('v', 6), ('w', 5)]
+    print('Все тесты пройдены')
+    print()
+
+    print(' Подсчет и сортировка со смещением только символов латинского алфавита '.center(80, '-'))
+    assert char_count_latin('Привет, Мир!') == []
+    assert char_count_latin('Hello, World!') == [('H', 1), ('W', 1), ('d', 1), ('e', 1), ('l', 3), ('o', 2), ('r', 1)]
+    assert char_count_latin('aaaaa') == [('a', 5)]
+    assert char_count_latin('AAAAA') == [('A', 5)]
+    assert char_count_latin('aaaaa zzzzzz') == [('a', 5), ('z', 6)]
+    assert char_count_latin('AAAAA ZZZZZZ') == [('A', 5), ('Z', 6)]
+    assert char_count_latin('1343400 2  23 423 4234 ') == []
+    assert char_count_latin('aaaaa bbbbb ccccc') == [('a', 5), ('b', 5), ('c', 5)]
+    assert char_count_latin('aaaaa 34 sdfds ') == [('a', 5), ('d', 2), ('f', 1), ('s', 2)]
+    assert char_count_latin('aaaaa bbbbb cccc 11111') == [('a', 5), ('b', 5), ('c', 4)]
+    assert char_count_latin('qwerty qwerty qwerty') == [('e', 3), ('q', 3), ('r', 3), ('t', 3), ('w', 3), ('y', 3)]
+    assert char_count_latin('adgfrewgv25gbv253gvregwergvwregvwergfvwertq') == [('a', 1), ('b', 1), ('d', 1), ('e', 6), ('f', 2), ('g', 8), ('q', 1), ('r', 6), ('t', 1), ('v', 6), ('w', 5)]
+    print('Все тесты пройдены')
+    print()
