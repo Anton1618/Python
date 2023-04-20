@@ -2,8 +2,8 @@
 
 Описание:
 - values - управляемое свойство элементов объекта
-    геттер - возвращает значения в отсортированном виде
-    сеттер - валидатор, проверяющий элементы на корректность. Элементами могут быть только целочисленные значения
+    - геттер - возвращает значения в отсортированном виде
+    - сеттер - валидатор, проверяющий элементы на корректность. Элементами могут быть только целочисленные значения
 - str - отображение данных в пользовательском формате
 - add - сложение значений вектора с переданным аргументом
 - mul - умножение значений вектора с переданным аргументом
@@ -11,63 +11,81 @@
 
 class Vector:
     def __init__(self, *args):
-        self._values = args
+        self.values = args
     @property
     def values(self):
         return sorted(self._values)
     @values.setter
     def values(self, new_values):
-        for i in new_values:
-            if not isinstance(i, int):
-                raise ValueError('Значениями могут быть только целочисленные элементы')
+        if not all([isinstance(i, int) for i in new_values]):
+            raise ValueError('Значениями могут быть только целочисленные элементы')
         self._values = new_values
-
+    def __repr__(self):
+        return f'<vr {id(self) % 1000!r}>'
     def __str__(self):
-        if self.values:
-            st = '<{}> ' * len(self.values)
-            return f"Вектор: {st.format(*self.values)}"
-        else:
-            return f'Вектор пуст'
+        comp = (r"<{}> " * len(self.values)).format(*self.values) if self.values else 'пуст'
+        return f'{repr(self)}: {comp}'
 
     def __add__(self, other):
         '''Суммирование значений и реализация в новом объекте класса
-        - Если аргумент число, реализация осуществляется суммированием каждого значения вектора с полученным аргументом
-        - Если аргументом является объект этого класса, то осуществляется позиционное суммирование значений одного
-         вектора со значениями другого'''
+        - Если аргументом является число, то для каждого значения вектора, осуществляется приращение на его значение.
+        - Если аргументом является другой объект-вектор, то для каждого значения текущего, осуществляется позиционное
+        приращение на значения другого.
+        При этом, если векторы разной длины, то оставшиеся элементы наибольшего вектора, будут добавлены в массив текущего.
+        Таким образом, любое сложение векторов приводит к получению вектора наибольшей длины'''
         if isinstance(other, int):
             sum_vector = [i + other for i in self.values]
         elif isinstance(other, self.__class__):
             sum_vector = []
             greatest, least = (self.values, other.values) if len(self.values) > len(other.values) else (other.values, self.values)
-            for i in range(len(least)):
+            i = 0
+            while i < len(least):
                 sum_vector.append(least[i] + greatest[i])
-            else:
-                sum_vector.extend(greatest[i+1:])
+                i += 1
+            return self.__class__(*sum_vector + greatest[i:])
         else:
             raise ValueError(f'Суммирование с элементом {other} невозможно.\n'
                              f'Аргумент должен быть числом или объектом класса {self.__class__.__name__}')
-        return self.__class__(*sum_vector)
+    def __mul__(self, other):
+        '''Метод полностью аналогичен __add__, но выполняет умножение элементов вектора, вместо их сложения,
+        для аналогичного получения нового объекта вектора по наибольшей длине операндов'''
+        if isinstance(other, int):
+            mul_vector = [i * other for i in self.values]
+        elif isinstance(other, self.__class__):
+            mul_vector = []
+            greatest, least = (self.values, other.values) if len(self.values) > len(other.values) else (other.values, self.values)
+            i = 0
+            while i < len(least):
+                mul_vector.append(least[i] + greatest[i])
+                i += 1
+            return self.__class__(*mul_vector + greatest[i:])
+        else:
+            raise ValueError(f'Суммирование с элементом {other} невозможно.\n'
+                             f'Аргумент должен быть числом или объектом класса {self.__class__.__name__}')
 
 
 if __name__ == '__main__':
-    print('Построение и отображение значений векторов')
-    v1 = Vector(1, 2, 3)
-    v2 = Vector(30, 10, 20, 40, 50, 60)
+    print(' Инициализация и отображение объектов '.center(120, '-'))
+    v1 = Vector(1, 2, 3, 4, 5)
+    v2 = Vector(10, 20, 30)
     v3 = Vector()
-    print('Состав векторов')
-    print(v1)
-    print(v2)
-    print(v3)
+    print('Состав векторов:', v1, v2, v3, sep='\n')
     print()
 
-    print('Создание результирующего объекта с суммой значений')
-    print('Прибавление целочисленного значения ко всем элементам вектора')
-    sumVector1 = v1 + 10
-    print(type(sumVector1), sumVector1)
-    print('Сложение элементов векторов')
-    sumVector2 = v1 + v2
-    print(type(sumVector2), sumVector2)
-    print('Ошибочная передача аргумента, не относящегося к целочисленному типу или объекту класса Vector')
-    # sumVector3 = v1 + 'abracadabra' # ValueError: Суммирование с элементом abracadabra невозможно.
-    # Аргумент должен быть числом или объектом класса Vector
+    print(' Создание нового объекта, при прибавлении целочисленного значения ко всем элементам вектора '.center(120, '-'))
+    print(f'Прибавление ко всем значениям {repr(v1)} числового значения 10')
+    sumVectorV1plus10 = v1 + 10
+    print(f'Создан {sumVectorV1plus10}')
+    print()
+
+    print(' Создание нового объекта, при позиционном сложение элементов векторов '.center(120, '-'))
+    print(f'Сложение значений {repr(v1)} и {repr(v2)}')
+    sumVectorV1V2 = v1 + v2
+    print(f'Создан {sumVectorV1V2}')
+    print()
+
+    print(' Создание нового объекта, при позиционном умножении элементов векторов '.center(120, '-'))
+    print(f'Умножение значений {repr(v1)} и {repr(v2)}')
+    mulVectorV1V2 = v1 * v2
+    print(f'Создан {mulVectorV1V2}')
     print()

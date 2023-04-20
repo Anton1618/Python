@@ -46,11 +46,14 @@ class ImmutableContainer:
         return self.values
 
     def keyValid(self, key=None):
-        '''Атрибут-валидатор, применяемый в других методах, для проверки корректности переданного значения ключа'''
+        '''Атрибут-валидатор, применяемый в методах для получения, установки и удаления элементов контейнера.
+         Осуществляет проверку корректности переданного значения ключа,
+         при этом, учитывается возможная передача отрицательного значения индекса, но входящего в диапазон элементов,
+         при обращении к элементам с конца массива'''
         if key:
             if not isinstance(key, int):
                 raise TypeError('Индексом может быть только целое число')
-            if not -(len(self.values)) <= key <= len(self.values):  # Индексом может быть отрицательное значение с конца
+            if not -(len(self.values)) <= key <= len(self.values):
                 raise IndexError('Выход за пределы диапазона значений')
             return self.values[key]
         return self.values
@@ -71,7 +74,7 @@ class MutableContainer(ImmutableContainer):
         objB[:10] = [42]
         objB  # [1, 2, 3, None, None, None, None, None, None, None, 42]
         '''
-        # 1. Присвоение массива по принципу встроенного типа списка
+        # Вариант 1. Присвоение массива по принципу встроенного типа списка
         # if 0 <= key <= len(self.values):
         #     self.values[key] = value
         # else:
@@ -80,7 +83,7 @@ class MutableContainer(ImmutableContainer):
         #     elif key < len(self.values):
         #         self.values[:0] = [value]
 
-        # 2. Присвоение разряженного массива
+        # Вариант 2. Присвоение разряженного массива
         if 0 <= key <= len(self.values):
             self.values[key] = value
         else:
