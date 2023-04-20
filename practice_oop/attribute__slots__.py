@@ -1,4 +1,6 @@
-'''Сравнение __slots__ и __dict__'''
+'''Сравнение __slots__ и __dict__
+
+Определение атрибутов и сравнение размера занимаемой памяти'''
 
 from pympler.asizeof import asizeof
 from sys import getsizeof
