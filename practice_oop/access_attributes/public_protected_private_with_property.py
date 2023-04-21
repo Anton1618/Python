@@ -20,10 +20,10 @@ class BankAccount:
         self._name = new_name
     def del_name(self):
         del self._name
-    # Property атрибуты
+    # Property атрибуты:
     # name = property()
     # name = name.getter(get_name)
-    # Эквивалентно: name = property(get_name) - одной строкой вместо двух
+    # Две строки выше эквивалентны записи: name = property(get_name)
     name = property(get_name)
     name = name.setter(set_name)
     name = name.deleter(del_name)
@@ -35,10 +35,10 @@ class BankAccount:
         self._balance = new_balance
     def del_balance(self):
         del self._balance
-    # Property параметры
-    # В одну строку, без явного указания параметров
+    # Property параметры:
+    # Могут быть записаны в одну строку, без явного указания параметров
     # balance = property(get_balance, set_balance, del_balance, 'Документации по атрибуту balance')
-    # С явным указанием названий параметров
+    # Могут быть записаны с явным указанием параметров
     balance = property(
         fget=get_balance,
         fset=set_balance,
@@ -59,19 +59,19 @@ class BankAccount:
 
 
 if __name__ == '__main__':
-    print(' --------- Прямое обращение к первоначальным атрибутам --------- ')
+    print(' Прямое обращение к первоначальным атрибутам '.center(120, '-'))
     ilya = BankAccount('Ilya', 1000, '23-439501')
     print('Объект:', ilya.__dict__)
-    print(' --------- Получение данных')
+    print('Получение данных')
     print(ilya._name)
     print(ilya._balance)
     print(ilya._BankAccount__passport)
-    print(' --------- Изменение данных')
+    print('Изменение данных')
     ilya._name = 'test-name'
     ilya._balance = 'test-balance'
     ilya._passport = 'test-passport'
     print(ilya.__dict__)
-    print(' --------- Удаление данных')
+    print('Удаление данных')
     del ilya._name
     del ilya._balance
     del ilya._BankAccount__passport
@@ -80,21 +80,21 @@ if __name__ == '__main__':
     print()
 
 
-    print(' --------- Применение пользовательских методов --------- ')
+    print(' Применение пользовательских методов '.center(120, '-'))
     lera = BankAccount('Valeria', 1000, '14-464219')
     print('Объект:', lera.__dict__)
-    print(' --------- Получение данных')
+    print('Получение данных')
     print(lera.get_name())
     print(lera.get_balance())
     print(lera.passport)  # Атрибут декорирован, обращение может осуществляться либо напрямую к атрибуту, либо через
     # публичный property атрибут (управляемое свойство)
-    print(' --------- Изменение данных')
+    print('Изменение данных')
     lera.set_name('test-name')
     lera.set_balance('test-balance')
     lera.passport = 'test-passport'  # Атрибут декорирован, присвоение может осуществляться либо напрямую в атрибут,
     # либо через публичный property атрибут (управляемое свойство)
     print(lera.__dict__)
-    print(' --------- Удаление данных')
+    print('Удаление данных')
     lera.del_name()
     lera.del_balance()
     del lera.passport  # Атрибут декорирован, удаление может осуществляться либо напрямую над атрибутом,
@@ -104,19 +104,19 @@ if __name__ == '__main__':
     print()
 
 
-    print(' --------- Применение property-методов - управляемых свойств над атрибутами --------- ')
+    print(' Применение property-методов - управляемых свойств над атрибутами '.center(120, '-'))
     mike = BankAccount('Mikel', 1000, '42-610927')
     print('Объект:', mike.__dict__)
-    print(' --------- Получение данных')
+    print('Получение данных')
     print(mike.name)
     print(mike.balance)
     print(mike.passport)
-    print(' --------- Изменение данных')
+    print('Изменение данных')
     mike.name = 'test-name'
     mike.balance = 'test-balance'
     mike.passport = 'test-passport'
     print(mike.__dict__)
-    print(' --------- Удаление данных')
+    print('Удаление данных')
     del mike.name
     del mike.balance
     del mike.passport

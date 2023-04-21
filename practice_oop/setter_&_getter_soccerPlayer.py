@@ -2,7 +2,7 @@
 
 - score - сеттер, который устанавливает количество голов;
 - make_assists - сеттер, который устанавливает количество передач;
-- statistics - геттер, который возвращает информацию о игроке.
+- statistics - геттер, который возвращает информацию об игроке.
 '''
 class SoccerPlayer:
     def __init__(self, name, surname):
@@ -16,6 +16,7 @@ class SoccerPlayer:
         self.assists += value
     def statistics(self):
         return f'{self.surname} {self.name} - голы: {self.goal}, передачи: {self.assists}'
+
 
 if __name__ == '__main__':
     leo = SoccerPlayer('Leo', 'Messi')

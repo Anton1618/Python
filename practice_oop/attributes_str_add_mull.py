@@ -34,7 +34,7 @@ class Vector:
         При этом, если векторы разной длины, то оставшиеся элементы наибольшего вектора, будут добавлены в массив текущего.
         Таким образом, любое сложение векторов приводит к получению вектора наибольшей длины'''
         if isinstance(other, int):
-            sum_vector = [i + other for i in self.values]
+            return self.__class__(*[i + other for i in self.values])
         elif isinstance(other, self.__class__):
             sum_vector = []
             greatest, least = (self.values, other.values) if len(self.values) > len(other.values) else (other.values, self.values)
@@ -50,13 +50,13 @@ class Vector:
         '''Метод полностью аналогичен __add__, но выполняет умножение элементов вектора, вместо их сложения,
         для аналогичного получения нового объекта вектора по наибольшей длине операндов'''
         if isinstance(other, int):
-            mul_vector = [i * other for i in self.values]
+            return self.__class__(*[i * other for i in self.values])
         elif isinstance(other, self.__class__):
             mul_vector = []
             greatest, least = (self.values, other.values) if len(self.values) > len(other.values) else (other.values, self.values)
             i = 0
             while i < len(least):
-                mul_vector.append(least[i] + greatest[i])
+                mul_vector.append(least[i] * greatest[i])
                 i += 1
             return self.__class__(*mul_vector + greatest[i:])
         else:
