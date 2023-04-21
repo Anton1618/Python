@@ -2,14 +2,17 @@
 организованная по принципу LIFO (last in - first out), последним пришёл первым вышел
 '''
 
+
 class Stack:
     def __init__(self):
         self.values = []
 
     def push(self, item):
+        '''Внесение элемента в массив стека'''
         self.values.append(item)
 
     def pop(self):
+        '''Удаление последнего элемента стека и его возвращение'''
         if self.is_empty():
             return 'Empty Stack!'
         el = self.values[-1]
@@ -17,14 +20,17 @@ class Stack:
         return el
 
     def peek(self):
+        '''Возвращение последнего элемента массива стека'''
         if self.is_empty():
             return 'Empty Stack!'
         return self.values[-1]
 
     def is_empty(self):
+        '''Булева проверка на пустой массив стека'''
         return True if len(self.values) == 0 else False
 
     def size(self):
+        '''Получение размера массива стека'''
         return len(self.values)
 
 
