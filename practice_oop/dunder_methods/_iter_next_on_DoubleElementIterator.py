@@ -15,14 +15,14 @@ class DoubleElementIterator:
     def __iter__(self):
         return self
     def __next__(self):
-        if self.i+2 >= len(self.lst):
+        if self.i + 2 >= len(self.lst):
             raise StopIteration
         self.i += 2
         return self.lst[self.i-2], self.lst[self.i-1]
 
 
 class MyListDouble(list):
-    '''Выполняет итерирование на основе вы'''
+    '''Выполняет итерирование на основе класса итератора'''
     def __iter__(self):
         return DoubleElementIterator(self)
 
