@@ -1,18 +1,19 @@
 '''Реализация пользовательских итераторов.
 А также применение итераторов в сторонних классах для итерирования их элементов.
 
-Для применения класса итератора в сторонних классах, он вызывается в методе iter целевого класса на объекте или его
-определенном массиве, возвращая объект итератора.
+Протокол итератора, будучи определенным в классе итератора, позволяет ему в методе __iter__ возвращать самого себя
+Для применения класса итератора в сторонних классах, он вызывается в методе __iter__ целевого класса, применяясь на всем
+объекте или его определенном массиве, таким образом, возвращая экземпляр класса итератора
 
 Рассматриваются:
-- class EternalIterator: - реализация итератора, не ограниченного одним итерированием
-- class Iterator - реализация принципа итерирования итератора
+- class UserIterator - реализация классического итератора
+- class InfIterator: - реализация итератора, не ограниченного в количестве итераций
 - class Range - реализация функции range()
 - class RandomIterator - возвращает k-случайных чисел
 '''
 
 
-class EternalIterator:
+class InfIterator:
     def __init__(self, value):
         self.value = value
         self.index = 0
@@ -29,51 +30,44 @@ class EternalIterator:
         return letter
 
 
-class EternalIterable:
+class InfIterable:
     def __init__(self, value):
         self.value = value
     def __iter__(self):
-        return EternalIterator(self.value)
+        return InfIterator(self.value)
 
 
-class Iterator:
-    '''Пользовательский итератор, реализующий процесс получения элементов из итератора.
+class UserIterator:
+    '''Пользовательский итератор, реализующий классическую работу итератора.
     Последовательно возвращает и удаляет элементы в массиве'''
     def __init__(self, value):
-        self.container = []
-        for i in value:
-            self.container.append(f'-{i}-')
+        self.container = list(value)
+
     def __iter__(self):
         return self
+
     def __next__(self):
-        '''В отличие от стандартного итерирования, метод не применяет счетчик, а всегда обращается к текущему элементу
-        В процессе итерирования он возвращает и удаляет этот элемент.
-        Останавливается, когда атрибут объекта становится пуст'''
-        if self.container == []:
+        if not self.container:
             raise StopIteration
         item = self.container[0]
         del self.container[0]
-        return item
+        return f'Element <{item}>'
 
 
-class LettersStandard:
+class Letters:
     '''Сторонний класс, реализующий стандартное итерирование элементов'''
     def __init__(self, value):
-        self.container = []
-        for i in value:
-            self.container.append(f'-{i}-')
+        self.container = list(value)
     def __iter__(self):
-         return iter(self.container)
+        return iter(self.container)
 
 
 class LettersUserIterator:
     '''Сторонний класс, реализующий пользовательский итератор'''
     def __init__(self, value):
-        self.container = []
-        for i in value:
-            self.container.append(f'-{i}-')
+        self.container = list(value)
     def __iter__(self):
-        return Iterator(self.container)
+        return UserIterator(self.container)
 
 
 class Range:
@@ -126,33 +120,33 @@ def random_generator(k):
 
 
 if __name__ == '__main__':
-    print(' Применение пользовательского итератора, для итерирования объекта без ограничений в количестве раз '.center(120, '-'))
-    print('Применение для итерирования пользовательского класса EternalIterator')
-    for i in EternalIterator('qwerty'):
+    print(' Применение пользовательского итератора, для неограниченного количества итераций '.center(120, '-'))
+    print('Применение InfIterator')
+    for i in InfIterator('qwerty'):
         print(i, end=' ')
     print()
-    for i in EternalIterable('qwerty'):
+    for i in InfIterable('qwerty'):
         print(i, end=' ')
     # q w e r t y
     # q w e r t y
     print()
 
-    print(' Реализация принципа обработки итератора '.center(120, '-'))
-    print('Применение для итерирования пользовательского класса Iterator')
-    for i in Iterator('qwerty'):
+    print(' Реализация классического итератора '.center(120, '-'))
+    print('Применение UserIterator')
+    for i in UserIterator('qwerty'):
         print(i, end=' ')
     print()
-    for i in Iterator([1, 2, 3]):
+    for i in UserIterator([1, 2, 3]):
         print(i, end=' ')
     # -q- -w- -e- -r- -t- -y-
     # -1- -2- -3-
     print()
 
     print('Применение для итерирования стандартной функции iter()')
-    for i in iter(LettersStandard('qwerty')):
+    for i in iter(Letters('qwerty')):
         print(i, end=' ')
     print()
-    for i in iter(LettersStandard([1, 2, 3])):
+    for i in iter(Letters([1, 2, 3])):
         print(i, end=' ')
     # -q- -w- -e- -r- -t- -y-
     # -1- -2- -3-
@@ -170,7 +164,7 @@ if __name__ == '__main__':
     print()
 
 
-    print(' Применение пользовательского итератора, возвращающего range-диапазон по элементам массива '.center(120, '-'))
+    print(' Применение пользовательского итератора, возвращающего range-диапазон по элементам объекта '.center(120, '-'))
     print('Получение range-диапазона от пользовательского класса Range')
     for num in Range(1, 10, 2):
         print(num, end=' ')
