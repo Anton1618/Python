@@ -1,25 +1,39 @@
-'''Реализация пользовательских итераторов.
-А также применение итераторов в сторонних классах для итерирования их элементов.
+'''Переопределение методов __iter__ и __next__, а также применение этого функционала в стороннем классе.
 
 Протокол итератора, будучи определенным в классе итератора, позволяет ему в методе __iter__ возвращать самого себя
 Для применения класса итератора в сторонних классах, он вызывается в методе __iter__ целевого класса, применяясь на всем
-объекте или его определенном массиве, таким образом, возвращая экземпляр класса итератора
+объекте или его определенном массиве, таким образом, возвращая свой экземпляр класса итератора.
 
 Рассматриваются:
-- class UserIterator - реализация классического итератора
-- class InfIterator: - реализация итератора, не ограниченного в количестве итераций
-- class Range - реализация функции range()
-- class RandomIterator - возвращает k-случайных чисел
+- class Letters - класс, в котором реализовано стандартное поведение итератора.
+- class List - пустой класс, который наследуется от класса list.
+- class InfIterator - реализация итератора, не ограниченного в количестве итераций.
+- class UserIterator - реализация классического итератора.
+- class Range - возвращает range-диапазон по элементам объекта.
+- class RandomIterator - возвращает k-случайных чисел.
+- class DoubleElementIterator - возвращает пары элементов объекта.
 '''
 
 
+class Letters:
+    '''Класс, в котором реализовано стандартное поведение итератора'''
+    def __init__(self, value):
+        self.container = list(value)
+    def __iter__(self):
+        return iter(self.container)
+
+
+class List(list):
+    '''Пустой класс, который наследуется от класса list'''
+    pass
+
+
 class InfIterator:
+    '''Реализация итератора, неограниченного в количестве итераций, за счет перевода индекса в начальное положение'''
     def __init__(self, value):
         self.value = value
         self.index = 0
     def __iter__(self):
-        '''При реализации счетчика-индекса вне метода iter, для сохранения способности итерировать объект
-        неограниченное количество раз, потребуется определение счетчика при инициализации и в условной конструкции'''
         return self
     def __next__(self):
         if self.index >= len(self.value):
@@ -30,7 +44,8 @@ class InfIterator:
         return letter
 
 
-class InfIterable:
+class InfIteratorIterable:
+    '''Сторонний класс, реализующий пользовательский итератор InfIterator'''
     def __init__(self, value):
         self.value = value
     def __iter__(self):
@@ -38,32 +53,22 @@ class InfIterable:
 
 
 class UserIterator:
-    '''Пользовательский итератор, реализующий классическую работу итератора.
+    '''Итератор, реализующий классическую работу итератора.
     Последовательно возвращает и удаляет элементы в массиве'''
     def __init__(self, value):
         self.container = list(value)
-
     def __iter__(self):
         return self
-
     def __next__(self):
         if not self.container:
             raise StopIteration
         item = self.container[0]
         del self.container[0]
-        return f'Element <{item}>'
+        return f'<{item}>'
 
 
-class Letters:
-    '''Сторонний класс, реализующий стандартное итерирование элементов'''
-    def __init__(self, value):
-        self.container = list(value)
-    def __iter__(self):
-        return iter(self.container)
-
-
-class LettersUserIterator:
-    '''Сторонний класс, реализующий пользовательский итератор'''
+class UserIteratorIterable:
+    '''Сторонний класс, реализующий пользовательский итератор UserIterator'''
     def __init__(self, value):
         self.container = list(value)
     def __iter__(self):
@@ -71,7 +76,7 @@ class LettersUserIterator:
 
 
 class Range:
-    '''Пользовательский итератор, возвращающий range-диапазон'''
+    '''Итератор, возвращающий range-диапазон по элементам объекта'''
     def __init__(self, start, stop, step):
         self.next = start
         self.stop = stop
@@ -87,7 +92,7 @@ class Range:
 
 
 class RangeIterable:
-    '''Сторонний класс, реализующий пользовательский итератор range-диапазона'''
+    '''Сторонний класс, реализующий пользовательский итератор Range'''
     def __init__(self, start, stop, step):
         self.start = start
         self.stop = stop
@@ -97,7 +102,7 @@ class RangeIterable:
 
 
 class RandomIterator:
-    '''Пользовательский итератор, возвращающий k-случайных чисел'''
+    '''Итератор, возвращающий k-случайных чисел'''
     from random import random
     def __init__(self, k):
         self.k = k
@@ -105,73 +110,137 @@ class RandomIterator:
     def __iter__(self):
         return self
     def __next__(self):
-        if self.i > self.k:
+        if self.i >= self.k:
             raise StopIteration
         self.i += 1
         return self.random()
 
 
 def random_generator(k):
-    '''Генераторная функция, выполняющая тот же принцип, что и пользовательский класс,
-    возвращающий k-случайных чисел, но с более простой реализацией логики'''
+    '''Генераторная функция, выполняющая тот же принцип, что и пользовательский класс RandomIterator.
+    Возвращает k-случайных чисел, но с более простой реализацией логики'''
     from random import random
-    for i in range(k):
+    for _ in range(k):
         yield random()
 
 
+class DoubleIterator:
+    '''Итератор, возвращающий пары элементов объекта'''
+    def __init__(self, value):
+        self.container = list(value)
+        self.i = 0
+    def __iter__(self):
+        return self
+    def __next__(self):
+        if self.i + 2 >= len(self.container):
+            raise StopIteration
+        self.i += 2
+        return self.container[self.i-2], self.container[self.i-1]
+
+
+class DoubleIteratorIterable:
+    '''Сторонний класс, реализующий пользовательский итератор DoubleElementIterator'''
+    def __init__(self, value):
+        self.container = list(value)
+    def __iter__(self):
+        return DoubleIterator(self.container)
+
+
 if __name__ == '__main__':
-    print(' Применение пользовательского итератора, для неограниченного количества итераций '.center(120, '-'))
-    print('Применение InfIterator')
-    for i in InfIterator('qwerty'):
-        print(i, end=' ')
-    print()
-    for i in InfIterable('qwerty'):
+    print(' Классы с поведением для итерирования по умолчанию '.center(120, '-'))
+    print(Letters.__doc__)
+    letters_it = iter(Letters('qwerty'))
+    for i in letters_it:
         print(i, end=' ')
     # q w e r t y
+    print()
+    print('Повторно')
+    for i in letters_it:
+        print(i, end=' ')
+    # None
+    print()
+
+    print(List.__doc__)
+    list_it = iter(List([1, 2, 3, 4, 5]))
+    for pair in list_it:
+        print(pair, end=' ')
+    # 1 2 3 4 5
+    print()
+    print('Повторно')
+    for i in list_it:
+        print(i, end=' ')
+    # None
+    print()
+    print()
+
+
+
+    print(' InfIterator '.center(120, '-'))
+    print(InfIterator.__doc__)
+    inf_it = InfIterator('qwerty')
+    for i in inf_it:
+        print(i, end=' ')
+    # q w e r t y
+    print()
+    print('Повторно')
+    for i in inf_it:
+        print(i, end=' ')
     # q w e r t y
     print()
 
-    print(' Реализация классического итератора '.center(120, '-'))
-    print('Применение UserIterator')
-    for i in UserIterator('qwerty'):
+    print(InfIteratorIterable.__doc__)
+    infiteratoriterable_it = iter(InfIteratorIterable('qwerty'))
+    for i in infiteratoriterable_it:
         print(i, end=' ')
+    # q w e r t y
     print()
-    for i in UserIterator([1, 2, 3]):
+    print('Повторно')
+    for i in infiteratoriterable_it:
         print(i, end=' ')
-    # -q- -w- -e- -r- -t- -y-
-    # -1- -2- -3-
-    print()
-
-    print('Применение для итерирования стандартной функции iter()')
-    for i in iter(Letters('qwerty')):
-        print(i, end=' ')
-    print()
-    for i in iter(Letters([1, 2, 3])):
-        print(i, end=' ')
-    # -q- -w- -e- -r- -t- -y-
-    # -1- -2- -3-
-    print()
-
-    print('Применение пользовательского итератора в стороннем классе')
-    for i in iter(LettersUserIterator('qwerty')):
-        print(i, end=' ')
-    print()
-    for i in iter(LettersUserIterator([1, 2, 3])):
-        print(i, end=' ')
-    # --q-- --w-- --e-- --r-- --t-- --y--
-    # --1-- --2-- --3--
+    # q w e r t y
     print()
     print()
 
 
-    print(' Применение пользовательского итератора, возвращающего range-диапазон по элементам объекта '.center(120, '-'))
-    print('Получение range-диапазона от пользовательского класса Range')
-    for num in Range(1, 10, 2):
+
+    print(' UserIterator '.center(120, '-'))
+    print(UserIterator.__doc__)
+    useriterator_it = UserIterator('qwerty')
+    for i in useriterator_it:
+        print(i, end=' ')
+    # <q> <w> <e> <r> <t> <y>
+    print()
+    print('Повторно')
+    for i in useriterator_it:
+        print(i, end=' ')
+    # None
+    print()
+
+    print(UserIteratorIterable.__doc__)
+    useriteratoriterable_it = iter(UserIteratorIterable('qwerty'))
+    for i in useriteratoriterable_it:
+        print(i, end=' ')
+    # <q> <w> <e> <r> <t> <y>
+    print()
+    print('Повторно')
+    for i in useriteratoriterable_it:
+        print(i, end=' ')
+    # None
+    print()
+    print()
+
+
+
+    print(' Range '.center(120, '-'))
+    print(Range.__doc__)
+    range_it = Range(1, 10, 2)
+    for num in range_it:
         print(num, end=' ')
     # 1 3 5 7 9
     print()
+    print()
 
-    print('Получение range-диапазона от пользовательского метода в стороннем классе')
+    print(RangeIterable.__doc__)
     for num in RangeIterable(1, 10, 2):
         print(num, end=' ')
     # 1 3 5 7 9
@@ -179,16 +248,17 @@ if __name__ == '__main__':
     print()
 
 
-    print(' Применение пользовательского итератора и функции, для возвращения k-случайных чисел '.center(120, '-'))
-    print('Получение k-случайных чисел от пользовательского класса RandomIterator')
+
+    print(' RandomIterator '.center(120, '-'))
+    print(RandomIterator.__doc__)
     for x in RandomIterator(3):
         print(x)
     # 0.6454400647167301
     # 0.6232398624624254
     # 0.5607588517964365
-    # 0.59106925883583
+    print()
 
-    print('Получение k-случайных чисел от генераторной функции random_generator')
+    print(random_generator.__doc__)
     gen = random_generator(3)
     for i in gen:
         print(i)
@@ -197,5 +267,23 @@ if __name__ == '__main__':
     # 0.7374135444753213
     print()
     print()
+
+
+
+    print(' DoubleElementIterator '.center(120, '-'))
+    print(DoubleIterator.__doc__)
+    for pair in DoubleIterator([1, 2, 3, 4, 5]):
+        print(pair, end=' ')
+    # (1, 2) (3, 4)
+    print()
+    print()
+
+    print(DoubleIteratorIterable.__doc__)
+    for pair in DoubleIteratorIterable([1, 2, 3, 4, 5]):
+        print(pair, end=' ')
+    # (1, 2) (3, 4)
+    print()
+    print()
+
 
 
