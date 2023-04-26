@@ -21,7 +21,7 @@ class Constructor:
         self.construct_time = datetime.now()
         self.identifier = id(self) % 1000
         self.colour = kwargs['colour'] if kwargs.get('colour') else 'white'
-        self.gas_tank_volume = kwargs['gas_tank_volume'] if kwargs.get('gas_tank_volume') else 2.0
+        self.gas_tank_volume = kwargs['gas_tank_volume'] if kwargs.get('gas_tank_volume') else 60.0
 
 
 class DealerCar:
@@ -73,12 +73,14 @@ class Car:
         return f'{repr(self)} | color: {self.colour}, price: {self.price}'
 
     def engine_on(self):
+        '''Включить зажигание'''
         if self.condition:
             return 'Нельзя запустить уже запущенный двигатель'
         self.condition = True
         return 'Двигатель запущен'
 
     def engine_off(self):
+        '''Выключить зажигание'''
         if not self.condition:
             return 'Нельзя заглушить уже заглушенный двигатель'
         self.condition = False
@@ -88,12 +90,13 @@ class Car:
         """Показатели количества топлива и заправленности"""
         return f'{self.gasoline / self.gas_tank_volume:.2%}'
 
-    def add_refueling(self, value):
+    def add_refueling(self, value=0.5):
         '''Пополнение бака топливом'''
         if value < 0:
             return 'Количество топлива для заправки не может быть отрицательным значением'
-        if not self.gasoline + value <= self.gas_tank_volume:
-            return f'Бак будет переполнен {value}л топлива, уточните количество топлива и повторите'
+        if not (val := self.gasoline + value) <= self.gas_tank_volume:
+            return f'Бак будет переполнен на {round(val - self.gas_tank_volume)}л топлива, уточните количество топлива ' \
+                   f'и повторите попытку'
         self.gasoline += value
         print(f'Бак пополнен на {value}л бензина')
         return f'Заправленность: {self.refueling()}'
@@ -113,11 +116,11 @@ class Car:
 
 if __name__ == '__main__':
     print(' Инициализация автомобилей и вывод данных по ним '.center(120, '-'))
-    car1 = Car('BMW', 'i8', 50000, 'LEASE', colour='white', gas_tank_volume=3.5)
+    car1 = Car('BMW', 'i8', 50000, 'LEASE', colour='white', gas_tank_volume=60.0)
     print(f'Приобретен в лизинг: {car1}')
-    car2 = Car('Nissan', 'j10', 24300, 'CASH', colour='green', gas_tank_volume=2.0)
+    car2 = Car('Nissan', 'j10', 24300, 'CASH', colour='green', gas_tank_volume=40.0)
     print(f'Приобретен за наличные: {car2}')
-    # car3 = Car('Mercedes', 'C-class', 28500, 'CRYPT', 'black', 2.5)
+    # car3 = Car('Mercedes', 'C-class', 28500, 'CRYPT', 'black', 55.0)
     # print(f'Приобретен за крипту: {car3}')
     print()
 
@@ -125,8 +128,8 @@ if __name__ == '__main__':
     print('Получение информации об автомобиле')
     print(car1.info())
     print('Заправка автомобиля')
-    print(car1.add_refueling(4))
-    print(car1.add_refueling(2))
+    print(car1.add_refueling(45.00))
+    print(car1.add_refueling(32.00))
     print()
     print('Запуск и выключение двигателя')
     print(car1.engine_on())
@@ -137,17 +140,17 @@ if __name__ == '__main__':
 
 
 
-    # print('Автомобильное меню услуг:')
-    # while (command := input(
-    #                     'Доступные действия:\n'
-    #                     f'info - {car1.info.__doc__}\n'
-    #                     f'add_refueling - {car1.add_refueling.__doc__}\n'
-    #                     f'engine_on - {car1.engine_on.__doc__}\n'
-    #                     f'engine_off - {car1.engine_off.__doc__}\n'
-    #                     'Ваше действие: ')) != "stop":
-    #     if command in dir(car1):
-    #         if hasattr(car1, command):
-    #             hasattr(car1, command)()
-    #         else:
-    #             print('Неизвестная команда, повторите')
-    #     print()
+    print('Автомобильное меню услуг:')
+    while (command := input(
+                        'Доступные действия:\n'
+                        f'info - {car1.info.__doc__}\n'
+                        f'add_refueling - {car1.add_refueling.__doc__}\n'
+                        f'engine_on - {car1.engine_on.__doc__}\n'
+                        f'engine_off - {car1.engine_off.__doc__}\n'
+                        'Ваше действие: ')) != "stop":
+        if command in dir(car1):
+            if hasattr(car1, command):
+                print(getattr(car1, command)())
+            else:
+                print('Неизвестная команда, повторите')
+        print()
