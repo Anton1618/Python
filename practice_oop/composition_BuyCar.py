@@ -15,6 +15,7 @@ from datetime import datetime
 
 
 class Constructor:
+    '''Класс - завод конструктор, занимается сборкой и передачей автомобилей дилеру'''
     def __init__(self, maker, model, **kwargs):
         self.maker = maker
         self.model = model
@@ -25,7 +26,7 @@ class Constructor:
 
 
 class DealerCar:
-    '''Класс, реализующий дилера, продающего автомобили'''
+    '''Класс - дилер, продающий автомобили'''
     PURCHASE_TYPES = ('LEASE', 'CASH')
     MAKER = ('BMW', 'Nissan', 'Mercedes')
 
@@ -52,7 +53,7 @@ class DealerCar:
 
 
 class Car:
-    '''Класс результирующего объекта автомобиля с атрибутами для взаимодействия'''
+    '''Класс пользовательского объекта - автомобиль. Авто имеет соответствующие атрибуты для взаимодействия'''
     def __init__(self, maker, model, price, purchase_type='CASH', **kwargs):
         car = DealerCar(maker, model, price, purchase_type, **kwargs).sale()
         self.maker = getattr(car, 'maker')
@@ -92,11 +93,11 @@ class Car:
 
     def add_refueling(self, value=0.5):
         '''Пополнение бака топливом'''
+        FalseVal = 'Заправщик качает головой и говорит:'
         if value < 0:
-            return 'Количество топлива для заправки не может быть отрицательным значением'
+            return f'{FalseVal} количество топлива не может быть отрицательным значением'
         if not (val := self.gasoline + value) <= self.gas_tank_volume:
-            return f'Бак будет переполнен на {round(val - self.gas_tank_volume)}л топлива, уточните количество топлива ' \
-                   f'и повторите попытку'
+            return f'{FalseVal} бак будет переполнен на {round(val - self.gas_tank_volume)}л, проверьте показатели'
         self.gasoline += value
         print(f'Бак пополнен на {value}л бензина')
         return f'Заправленность: {self.refueling()}'
@@ -130,6 +131,7 @@ if __name__ == '__main__':
     print('Заправка автомобиля')
     print(car1.add_refueling(45.00))
     print(car1.add_refueling(32.00))
+    print(car1.add_refueling(-10.00))
     print()
     print('Запуск и выключение двигателя')
     print(car1.engine_on())
