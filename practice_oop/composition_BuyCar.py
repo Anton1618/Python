@@ -33,7 +33,6 @@ class DealerCar:
     @classmethod
     def get_purchase_types(cls):
         return cls.PURCHASE_TYPES
-
     def __init__(self, maker, model, price, purchase_type, **kwargs):
         if maker not in self.__class__.MAKER:
             raise ValueError(f'{maker} not available at the moment')
@@ -44,7 +43,6 @@ class DealerCar:
         self.price = price - (price * kwargs['discount']) if kwargs.get('discount') else price
         self.model = model
         self.dealer_car = Constructor(self.maker, self.model, **kwargs)
-
     def sale(self):
         self.dealer_car.price = self.price
         self.dealer_car.purchase_type = self.purchase_type
