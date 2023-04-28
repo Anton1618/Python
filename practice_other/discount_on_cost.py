@@ -6,9 +6,11 @@
 '''
 
 
-def result_price(price, max_discount=0.50, **kwargs):
+def result_price(price=None, max_discount=0.50, **kwargs):
     '''Функция принимает аргументы переменной длины.
     Аргументами могут стать возможно переданное значение скидки и налога'''
+    if not price:
+        raise ValueError('Должно быть обязательно передано значение стоимости')
     if kwargs.get('tax'):
         price = price + (price * kwargs['tax'])
     if kwargs.get('discount'):
@@ -19,9 +21,11 @@ def result_price(price, max_discount=0.50, **kwargs):
     return round(price, 2)
 
 
-def result_price2(price, max_discount=0.50, tax=0.18, discount=0.15):
+def result_price2(price=None, max_discount=0.50, tax=0.18, discount=0.15):
     '''Функция принимает аргументы фиксированной длины.
     Могут быть переданы значения скидки или налога, либо применены значения по умолчанию'''
+    if not price:
+        raise ValueError('Должно быть обязательно передано значение стоимости')
     price = price + (price * tax)
     if (value := price - (price * discount)) >= (price - (price * max_discount)):
         price = value
@@ -32,6 +36,7 @@ def result_price2(price, max_discount=0.50, tax=0.18, discount=0.15):
 
 if __name__ == '__main__':
     print('Функция с параметрами переменной длины')
+    # print(result_price())  # ValueError: Должно быть обязательно передано значение стоимости
     assert result_price(1500) == 1500
     assert result_price(1500, discount=0, tax=0) == 1500
     assert result_price(1500, discount=0.50) == 750.0
@@ -43,7 +48,9 @@ if __name__ == '__main__':
     assert result_price(1500, discount=0.50, tax=2) == 2250.0
     assert result_price(1500, discount=0.50, tax=0.00001) == 750.01
 
+
     print('Функция с параметрами по умолчанию')
+    # print(result_price2())  # ValueError: Должно быть обязательно передано значение стоимости
     assert result_price2(1500) == 1504.5
     assert result_price2(1500, discount=0, tax=0) == 1500
     assert result_price2(1500, discount=0.50) == 885.0
