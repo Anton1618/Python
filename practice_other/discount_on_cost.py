@@ -1,4 +1,4 @@
-'''Функция расчета стоимости товара.
+'''Функция вычисляет цену с учетом налога и скидки.
 
 Представлены две функции, которые могут принимать аргументы, рассчитывать на их основе результат и возвращать его:
 - Функция принимает аргументы переменной длины.
@@ -11,11 +11,14 @@ def result_price(price=None, max_discount=0.50, **kwargs):
     Аргументами могут стать возможно переданное значение скидки и налога'''
     if not price:
         raise ValueError('Должно быть обязательно передано значение стоимости')
-    if kwargs.get('tax'):
-        price = price + (price * kwargs['tax'])
-    if kwargs.get('discount'):
-        if (value := price - (price * kwargs['discount'])) >= (price - (price * max_discount)):
-            price = value
+    tax = kwargs.get('tax')
+    discount = kwargs.get('discount')
+    if tax:
+        price = price * (1 + tax)
+    if discount:
+        discounted_price = price * (1 - discount)
+        if discounted_price >= price * (1 - max_discount):
+            price = discounted_price
         else:
             raise ValueError(f'Скидка не может быть более {max_discount:.0%}')
     return round(price, 2)
@@ -26,9 +29,10 @@ def result_price2(price=None, max_discount=0.50, tax=0.18, discount=0.15):
     Могут быть переданы значения скидки или налога, либо применены значения по умолчанию'''
     if not price:
         raise ValueError('Должно быть обязательно передано значение стоимости')
-    price = price + (price * tax)
-    if (value := price - (price * discount)) >= (price - (price * max_discount)):
-        price = value
+    price = price * (1 + tax)
+    discounted_price = price * (1 - discount)
+    if discounted_price >= price * (1 - max_discount):
+        price = discounted_price
     else:
         raise ValueError(f'Скидка не может быть более {max_discount:.0%}')
     return round(price, 2)
