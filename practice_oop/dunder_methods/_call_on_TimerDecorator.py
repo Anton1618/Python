@@ -37,10 +37,12 @@ def fib(n):
     return fib(n-1) + fib(n-2)
 
 
-decor_fact = Timer(fact)
-decor_fib = Timer(fib)
-
-
 if __name__ == '__main__':
+    print('Факториал числа')
+    decor_fact = Timer(fact)
     print(decor_fact(35))
+    print()
+
+    print('Число Фибоначчи')
+    decor_fib = Timer(fib)
     print(decor_fib(35))

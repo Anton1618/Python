@@ -1,3 +1,8 @@
+'''Парсинг директорий и файлов по указанному пути в системе
+
+'''
+
+
 def bypass_files(path, depth=1):
     import os
     print('-'*depth+' [', path, f'({len(os.listdir(path))} Elements)', ']' )
@@ -17,6 +22,7 @@ def bypass_files(path, depth=1):
     print()
     for i in dir_lst:
         bypass_files(path+'/'+i, depth+1)
+
 
 if __name__ == '__main__':
     learn_path = r'C:\Users\akram\YandexDisk\[Антон]\-- Книги\Эзотерика Психология Философия'

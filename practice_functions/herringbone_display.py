@@ -18,7 +18,6 @@
 
 
 def simple_herringbone(height, source='*'):
-    lines = ''
     for i in range(height):
         value = source * (i * 2 + 1)
         width = ' ' * (height - i - 1)
@@ -37,8 +36,12 @@ def strong_herringbone(height, source='*'):
 
 
 if __name__ == '__main__':
+    print(' Функция simple_herringbone '.center(80, '-'))
     print(simple_herringbone(5))
-    print(strong_herringbone(5))
     print(simple_herringbone(5, '✨'))
+    print()
+
+    print(' Функция strong_herringbone '.center(80, '-'))
+    print(strong_herringbone(5))
     print(strong_herringbone(5, '✨'))
 

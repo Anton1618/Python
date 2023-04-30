@@ -51,7 +51,8 @@ if __name__ == '__main__':
     assert result_price(1500, discount=0.50, tax=1) == 1500.0
     assert result_price(1500, discount=0.50, tax=2) == 2250.0
     assert result_price(1500, discount=0.50, tax=0.00001) == 750.01
-
+    print('Все тесты пройдены')
+    print()
 
     print('Функция с параметрами по умолчанию')
     # print(result_price2())  # ValueError: Должно быть обязательно передано значение стоимости
