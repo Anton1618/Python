@@ -107,26 +107,33 @@ class User:
 
 if __name__ == '__main__':
     mike = User('Mike', 'mike_email@mail.com', 'hellowordl1*', '34-67-035834')
-    print(mike.__dict__)  # {'login': 'Mike', '_email': 'mike_email@mail.com', '_password': 'hellowordl1*', '_User__passport': '34-67-035834'}
+    print(mike.__dict__)
+    # {'login': 'Mike', '_email': 'mike_email@mail.com', '_password': 'hellowordl1*', '_User__passport': '34-67-035834'}
     print('Изменение почты')
-    mike.email = 'new_mike_email@mail.com'  # Введите пароль: hellowordl1* -> Пароль принят -> Почта изменена
+    mike.email = 'new_mike_email@mail.com'
+    # Введите пароль: hellowordl1* -> Пароль принят -> Почта изменена
     print('Получение почты')
-    print(f'Текущая почта: {mike.email}')  # Текущая почта: new_mike_email@mail.com
+    print(f'Текущая почта: {mike.email}')
+    # Текущая почта: new_mike_email@mail.com
     print()
     print()
 
     print('Изменение пароля')
-    mike.password = 'hellowordl2*'  # Введите пароль: hellowordl1* -> Пароль принят -> Пароль изменен
+    mike.password = 'hellowordl2*'
+    # Введите пароль: hellowordl1* -> Пароль принят -> Пароль изменен
     print('Получение пароля')
-    print(f'Текущий пароль: {mike.password}')  # Введите пароль: hellowordl2* -> Пароль принят -> Текущий пароль: hellowordl2*
+    print(f'Текущий пароль: {mike.password}')
+    # Введите пароль: hellowordl2* -> Пароль принят -> Текущий пароль: hellowordl2*
     print()
 
     print('Получение паспортных данных')
-    print(f'Текущие паспортные данные: {mike.passport}')  # Введите пароль: hellowordl2* -> Пароль принят
+    print(f'Текущие паспортные данные: {mike.passport}')
+    # Введите пароль: hellowordl2* -> Пароль принят
     print('Изменение паспортных данных (запрещено)')
     # mike.passport = '34-23-235839' # AttributeError: Изменение паспортных данных запрещено
     print()
 
     print('После всех изменений, Майкл имеет следующий словарь атрибутов')
-    print(mike.__dict__)  # {'login': 'Mike', '_email': 'new_mike_email@mail.com', '_password': 'hellowordl2*', '_User__passport': '34-67-035834'}
+    print(mike.__dict__)
+    # {'login': 'Mike', '_email': 'new_mike_email@mail.com', '_password': 'hellowordl2*', '_User__passport': '34-67-035834'}
     print()

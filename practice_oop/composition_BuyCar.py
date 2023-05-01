@@ -148,9 +148,10 @@ if __name__ == '__main__':
                         f'engine_on - {car1.engine_on.__doc__}\n'
                         f'engine_off - {car1.engine_off.__doc__}\n'
                         'Ваше действие: ')) != "stop":
-        if command in dir(car1):
-            if hasattr(car1, command):
-                print(getattr(car1, command)())
-            else:
-                print('Неизвестная команда, повторите')
+        if hasattr(car1, command):  # или if command in dir(car1):
+            print()
+            print(f' {getattr(car1, command)()} '.center(80, '-'))
+        else:
+            print()
+            print(' Неизвестная команда '.center(80, '-'))
         print()
