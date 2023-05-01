@@ -148,7 +148,7 @@ if __name__ == '__main__':
     print(w2)
     print()
 
-    print(f' Сравнение счетов {w1.balance=} и {w2.balance=} '.center(80, '-'))
+    print(f' Сравнение счетов {repr(w1)}={w1.balance} и {repr(w2)}={w2.balance} '.center(80, '-'))
     # w3 = Balance(currency='AMD')
     # print(w2 > w3)  # TypeError: Нельзя производить операции на счетах разных валют
     assert True == (w2 > w1)
