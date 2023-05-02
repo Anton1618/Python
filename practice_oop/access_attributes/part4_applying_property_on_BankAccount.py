@@ -106,10 +106,13 @@ class User:
 
 
 if __name__ == '__main__':
+    print(' Инициализация клиента '.center(80, '-'))
     mike = User('Mike', 'mike_email@mail.com', 'hellowordl1*', '34-67-035834')
     print(mike.__dict__)
     # {'login': 'Mike', '_email': 'mike_email@mail.com', '_password': 'hellowordl1*', '_User__passport': '34-67-035834'}
-    print('Изменение почты')
+    print()
+
+    print(' Получение и изменение почты '.center(80, '-'))
     mike.email = 'new_mike_email@mail.com'
     # Введите пароль: hellowordl1* -> Пароль принят -> Почта изменена
     print('Получение почты')
@@ -118,7 +121,7 @@ if __name__ == '__main__':
     print()
     print()
 
-    print('Изменение пароля')
+    print(' Получение и изменение пароля '.center(80, '-'))
     mike.password = 'hellowordl2*'
     # Введите пароль: hellowordl1* -> Пароль принят -> Пароль изменен
     print('Получение пароля')
@@ -126,14 +129,14 @@ if __name__ == '__main__':
     # Введите пароль: hellowordl2* -> Пароль принят -> Текущий пароль: hellowordl2*
     print()
 
-    print('Получение паспортных данных')
+    print(' Получение и изменение паспортных данных '.center(80, '-'))
     print(f'Текущие паспортные данные: {mike.passport}')
     # Введите пароль: hellowordl2* -> Пароль принят
     print('Изменение паспортных данных (запрещено)')
     # mike.passport = '34-23-235839' # AttributeError: Изменение паспортных данных запрещено
     print()
 
-    print('После всех изменений, Майкл имеет следующий словарь атрибутов')
+    print(' Результирующий словарь атрибутов со значениями после всех операций '.center(80, '-'))
     print(mike.__dict__)
     # {'login': 'Mike', '_email': 'new_mike_email@mail.com', '_password': 'hellowordl2*', '_User__passport': '34-67-035834'}
     print()
