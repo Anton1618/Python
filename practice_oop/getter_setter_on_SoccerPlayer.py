@@ -4,6 +4,8 @@
 - make_assists - сеттер, который устанавливает количество передач;
 - statistics - геттер, который возвращает информацию об игроке.
 '''
+
+
 class SoccerPlayer:
     def __init__(self, name, surname):
         self.name = name

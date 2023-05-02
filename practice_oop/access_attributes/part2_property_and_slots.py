@@ -65,8 +65,10 @@ if __name__ == '__main__':
           '- Исключается возможность создания нового атрибута, как по прямому обращению к объекту, так и через словарь '
           'свойств')
     # tom = Human('Tom', 1000)  # AttributeError: Age should be in 1-15
+
     tom = Human('Tom', 1)
     # tom.age = 1000  # AttributeError: Age should be in 1-15
+
     tom.age = 5
     # tom.age2 = 1000 # AttributeError: Only allowed ('name', 'age')
     # tom.__dict__['age'] = 1000 # AttributeError: 'Human' object has no attribute '__dict__'.
@@ -74,21 +76,21 @@ if __name__ == '__main__':
     print()
 
     print('Сравнение веса объектов с атрибутом свойств __slots__ и с дефолтным атрибутом словаря свойств __dict__')
-    print('Objets attributes Tom')
+    print('Объект Tom')
     print([f'{i} - {getattr(tom, i)}' for i in tom.__slots__])
-    print(f'The weight object with the __slots__ attribute:\n'
+    print(f'Вес объекта с атрибутом __slots__:\n'
           f'getsizeof: {getsizeof(tom)}\n'
           f'asizeof: {asizeof(tom)}')
     print()
 
 
-    class Human2(Human): pass
-
+    class Human2(Human):
+        pass
 
     angela = Human2('Angela', 3)
-    print('Objets attributes Angela')
+    print('Объект Angela')
     print([f'{i} - {getattr(angela, i)}' for i in angela.__slots__])
-    print(f'The weight object with default attribute dictionary:\n'
+    print(f'Вес объекта со словарем атрибутов по умолчанию:\n'
           f'getsizeof: {getsizeof(angela)}\n'
           f'asizeof: {asizeof(angela)}''')
     print()

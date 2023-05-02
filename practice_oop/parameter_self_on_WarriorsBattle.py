@@ -7,8 +7,9 @@
  Процесс битвы выполняется через рандомно определяемое число, указывая на то, какой объект наносит удар.
  Цикл повторяется до тех пор, пока здоровье одного из двух воинов не опуститься до 0, тогда станет объявлен победитель
  '''
-
 from random import randint
+
+
 class Warrior:
     health = 60
     def __init__(self, name):
@@ -17,6 +18,7 @@ class Warrior:
         enemy.health -= 20
         print(self.name, "бьет", enemy.name)
         print(f'{enemy.name} - {enemy.health} здоровья')
+
 
 class Battle:
     result = 'Сражения не было'
@@ -33,6 +35,7 @@ class Battle:
             self.result = u2.name + ' Победил'
     def who_win(self):
         print(self.result)
+
 
 if __name__ == '__main__':
     first = Warrior('Германец')
