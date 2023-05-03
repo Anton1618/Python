@@ -2,7 +2,7 @@
 
 Применяются отображения исходного объекта и объектов его копий
 '''
-
+print()
 list_a = [1, 2, 3, [10, 20]]
 print(f'Исходный объект: {list_a=}')
 print()
@@ -17,11 +17,22 @@ list_b5 = [*list_a]
 list_b6 = [letter for letter in list_a]
 print('Если в исходном списке есть вложенные объекты, например, другой список, то новый список будет содержать '
       'ссылки на те же вложенные объекты')
-print('id элементов исходного объекта')
+print(f'Исходный объект:')
+print(f'{list_a=}')
+print('id элементов исходного объекта:')
 print(*[id(i) % 10000 for i in list_a])
-print('id элементов объекта копии идентичны для вложенных элементов')
+print()
+print('Объекты копии:')
+print(f'{list_b=}\n'
+      f'{list_b2=}\n'
+      f'{list_b3=}\n'
+      f'{list_b4=}\n'
+      f'{list_b5=}\n'
+      f'{list_b6=}')
+print('id элементов объекта-копии идентичны с исходным объектом:')
 print('\n'.join([' '.join([str(id(j) % 10000) for j in i]) for i in [list_b, list_b2, list_b3, list_b4, list_b5, list_b6]]))
 print()
+
 
 print(' Внесение различных изменений '.center(80, '-'))
 print('- Изменение элемента на первом уровне вложенности в исходном объекте или одной из его копий, не отразится на '
@@ -38,26 +49,20 @@ list_b6[3][1] = 'world'
 print()
 
 
-print(' Отображение состава '.center(80, '-'))
-print(f'Исходный объект: \n'
-      f'{list_a=}')
-print()
-print('Объекты копии:',
-      f'{list_b=}',
-      f'{list_b2=}',
-      f'{list_b3=}',
-      f'{list_b4=}',
-      f'{list_b5=}',
-      f'{list_b6=}',
-      sep='\n')
-print()
-
-
-print(' Новое отображение ссылок '.center(80, '-'))
-print('id элементов исходного объекта')
+print(' Отображение элементов после изменений '.center(80, '-'))
+print(f'Исходный объект:')
+print(f'{list_a=}')
+print('id элементов исходного объекта:')
 print(*[id(i) % 10000 for i in list_a])
 print()
-print('id элементов объекта копии')
+print('Объекты копии:')
+print(f'{list_b=}\n'
+      f'{list_b2=}\n'
+      f'{list_b3=}\n'
+      f'{list_b4=}\n'
+      f'{list_b5=}\n'
+      f'{list_b6=}')
+print('id элементов объекта-копии:')
 print('\n'.join([' '.join([str(id(j) % 10000) for j in i]) for i in [list_b, list_b2, list_b3, list_b4, list_b5, list_b6]]))
 print()
 
@@ -69,7 +74,7 @@ list_c = copy.deepcopy(list_a)
 print(f'{list_a=}', f'{list_c=}', sep='\n')
 print()
 
-print('Ссылки на элементы объектов')
+print('Ссылки на элементы объектов:')
 print('\n'.join([' '.join([str(id(j) % 10000) for j in i]) for i in [list_a, list_c]]))
 print()
 

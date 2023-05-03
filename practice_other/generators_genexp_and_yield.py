@@ -59,6 +59,6 @@ if __name__ == '__main__':
     gen_pause = pause()
     print(next(gen_pause))
     value = 100
-    print(next(gen_pause))
+    # print(next(gen_pause))  # ? (StopIteration)
     value = 250
-    print(next(gen_pause))
+    # print(next(gen_pause))  # ? (StopIteration)
