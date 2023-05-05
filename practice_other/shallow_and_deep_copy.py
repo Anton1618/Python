@@ -29,7 +29,7 @@ print(f'{list_b=}\n'
       f'{list_b4=}\n'
       f'{list_b5=}\n'
       f'{list_b6=}')
-print('id элементов объекта-копии идентичны с исходным объектом:')
+print('id элементов объекта-копии идентичны с элементами исходного объекта:')
 print('\n'.join([' '.join([str(id(j) % 10000) for j in i]) for i in [list_b, list_b2, list_b3, list_b4, list_b5, list_b6]]))
 print()
 
