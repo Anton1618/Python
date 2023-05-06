@@ -14,7 +14,7 @@ logger.setLevel(logging.DEBUG)
 # Обработчик, который будет выводить сообщения в консоль
 console_handler = logging.StreamHandler()
 # Обработчик, который будет записывать сообщения в файл
-file_handler = logging.FileHandler('logfile_project42.log')
+file_handler = logging.FileHandler('app42.log')
 
 # Создание объекта форматера, который отформатирует выходные данные обработчика
 formatter = logging.Formatter('%(name)s %(levelname)s %(asctime)s - %(message)s',
@@ -34,4 +34,5 @@ logger.info('This is an info message')  # __main__ INFO [06.05.2023 01:13:31] - 
 logger.warning('This is a warning message')  # __main__ WARNING [06.05.2023 01:13:31] - This is a warning message
 logger.error('This is an error message')  # __main__ ERROR [06.05.2023 01:13:31] - This is an error message
 logger.critical('This is a critical message')  # __main__ CRITICAL [06.05.2023 01:13:31] - This is a critical message
+logger.exception('This is a exception message')  # __main__ CRITICAL [06.05.2023 01:13:31] - This is a critical message
 # Также, благодаря хендлеру (обработчику) FileHandler, все эти сообщения будут сохранены в файл my_log.log

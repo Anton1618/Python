@@ -43,7 +43,7 @@ class BankAccount:
         fget=get_balance,
         fset=set_balance,
         fdel=del_balance,
-        doc='Документации по атрибуту balance'
+        doc='Документация по атрибуту balance'
     )
 
 
