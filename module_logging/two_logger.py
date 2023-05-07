@@ -13,12 +13,6 @@ LOGGING_CONFIG = {
             "stream": "ext://sys.stdout",
             "formatter": "formatter_1",
         },
-        # "file_handler_app69": {
-        #     "class": "logging.FileHandler",
-        #     "level": "DEBUG",
-        #     "filename": "C:/GoogleDrive/Python/module_logging/app69.log",
-        #     "formatter": "formatter_1",
-        # },
     },
     "loggers": {
         "app42": {
