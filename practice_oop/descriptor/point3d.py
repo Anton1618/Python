@@ -53,6 +53,7 @@ class Integer:
         self.name = "_" + name
 
     def __get__(self, instance, owner):
+        print(f'__get__: {[{i: j} for i, j in instance.__dict__.items() if i==self.name]}')
         return getattr(instance, self.name)  # аналогично instance.__dict__[self.name]
 
     def __set__(self, instance, value):
