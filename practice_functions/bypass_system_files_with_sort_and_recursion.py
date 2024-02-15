@@ -25,5 +25,5 @@ def bypass_files(path, depth=1):
 
 
 if __name__ == '__main__':
-    learn_path = r'C:\Users\akram\YandexDisk\[Антон]\-- Книги\Эзотерика Психология Философия'
+    learn_path = r'C:\Users\Антон\YandexDisk\YandexDisk\[Антон]\-- Документы'
     bypass_files(learn_path)

@@ -4,7 +4,7 @@ import json
 
 print('-'.center(80, '-'))
 print('dump() - Сериализация Python объекта в JSON файл (Python obj -> JSON file)\n'
-      'dumps() - Сериализация Python объекта в JSON строку (Python obj -> JSON str)')
+    'dumps() - Сериализация Python объекта в JSON строку (Python obj -> JSON str)')
 
 print('- Простая сериализация')
 data = {"name": "John", "age": 30, "city": "New York"}
@@ -60,7 +60,7 @@ print()
 
 print('-'.center(80, '-'))
 print('load() - Десериализация JSON файла в Python объект  (JSON file -> Python obj)\n'
-      'loads() - Десериализация JSON строки в Python объект (JSON str -> Python obj)')
+    'loads() - Десериализация JSON строки в Python объект (JSON str -> Python obj)')
 
 print('- Простая десериализация')
 with open('data.json', 'r') as file:
@@ -121,7 +121,7 @@ print()
 
 
 print('- Сравнение параметров object_hook, принимающего словарь и object_pairs_hook, принимающего спискок двуэлементных '
-      'кортежей')
+    'кортежей')
 print('Учитывая, что ключами являться только строки, их можно преобразовывать, например в верхний регистр')
 print('Параметр object_pairs_hook')
 def object_pairs_hook(obj):
@@ -143,5 +143,3 @@ with open('data.json', 'r') as file:
 
 print(json.loads(data_str, object_hook=object_hook))
 # {'NAME': 'John', 'AGE': 30}
-
-

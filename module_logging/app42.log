@@ -1,0 +1,168 @@
+
+Описание:division by zero
+Traceback (most recent call last):
+  File "C:\GoogleDrive\Python\practice_other\test.py", line 11, in func
+    return quotient / divisor
+           ~~~~~~~~~^~~~~~~~~
+ZeroDivisionError: division by zero
+root ERROR - [06.05.2023 23:06:35] - Обработана ошибка ZeroDivisionError
+Описание:division by zero
+Traceback (most recent call last):
+  File "C:\GoogleDrive\Python\practice_other\test.py", line 11, in func
+    return quotient / divisor
+           ~~~~~~~~~^~~~~~~~~
+ZeroDivisionError: division by zero
+root ERROR - [06.05.2023 23:06:36] - Обработана ошибка ZeroDivisionError
+Описание:division by zero
+Traceback (most recent call last):
+  File "C:\GoogleDrive\Python\practice_other\test.py", line 11, in func
+    return quotient / divisor
+           ~~~~~~~~~^~~~~~~~~
+ZeroDivisionError: division by zero
+root ERROR - [06.05.2023 23:07:27] - Обработана ошибка ZeroDivisionError
+Описание:division by zero
+Traceback (most recent call last):
+  File "C:\GoogleDrive\Python\practice_other\test.py", line 11, in division
+    return quotient / divisor
+           ~~~~~~~~~^~~~~~~~~
+ZeroDivisionError: division by zero
+root DEBUG - [06.05.2023 23:43:37] - Debug info
+NoneType: None
+root DEBUG - [06.05.2023 23:43:37] - Debug info
+NoneType: None
+root DEBUG - [06.05.2023 23:43:37] - Debug info
+NoneType: None
+root ERROR - [06.05.2023 23:45:14] - Debug info
+NoneType: None
+root ERROR - [06.05.2023 23:45:14] - Debug info
+NoneType: None
+root ERROR - [06.05.2023 23:45:14] - Debug info
+NoneType: None
+root ERROR - [06.05.2023 23:46:45] - Debug info
+NoneType: None
+app42 DEBUG - [07.05.2023 00:40:37] - Debug message
+app42 DEBUG - [07.05.2023 00:46:43] - Debug message
+app42 DEBUG - [07.05.2023 00:50:07] - Debug message
+root DEBUG - [07.05.2023 01:41:50] - Debug message
+root INFO - [07.05.2023 01:41:50] - Info message
+root DEBUG - [07.05.2023 01:42:09] - Debug message
+root INFO - [07.05.2023 01:42:09] - Info message
+root DEBUG - [07.05.2023 01:42:17] - Debug message
+root INFO - [07.05.2023 01:42:17] - Info message
+__main__ DEBUG [07.05.2023 02:03:45] | This is a debug message
+__main__ INFO [07.05.2023 02:03:45] | This is an info message
+__main__ WARNING [07.05.2023 02:03:45] | This is a warning message
+__main__ ERROR [07.05.2023 02:03:45] | This is an error message
+__main__ CRITICAL [07.05.2023 02:03:45] | This is a critical message
+__main__ ERROR [07.05.2023 02:03:45] | This is a exception message
+NoneType: None
+__main__ DEBUG [07.05.2023 14:59:36] | This is a debug message
+__main__ INFO [07.05.2023 14:59:36] | This is an info message
+__main__ WARNING [07.05.2023 14:59:36] | This is a warning message
+__main__ ERROR [07.05.2023 14:59:36] | This is an error message
+__main__ CRITICAL [07.05.2023 14:59:36] | This is a critical message
+__main__ ERROR [07.05.2023 14:59:36] | This is a exception message
+NoneType: None
+app42 DEBUG [07.05.2023 15:09:21] | This is a debug message
+app42 INFO [07.05.2023 15:09:21] | This is an info message
+app42 WARNING [07.05.2023 15:09:21] | This is a warning message
+app42 ERROR [07.05.2023 15:09:21] | This is an error message
+app42 CRITICAL [07.05.2023 15:09:21] | This is a critical message
+app42 ERROR [07.05.2023 15:09:21] | This is a exception message
+NoneType: None
+app42 DEBUG [07.05.2023 15:12:01] | This is a debug message
+app42 INFO [07.05.2023 15:12:01] | This is an info message
+app42 WARNING [07.05.2023 15:12:01] | This is a warning message
+app42 ERROR [07.05.2023 15:12:01] | This is an error message
+app42 CRITICAL [07.05.2023 15:12:01] | This is a critical message
+app42 ERROR [07.05.2023 15:12:01] | This is a exception message
+NoneType: None
+app42 DEBUG [07.05.2023 15:20:22] | This is a debug message
+app42 INFO [07.05.2023 15:20:22] | This is an info message
+app42 WARNING [07.05.2023 15:20:22] | This is a warning message
+app42 ERROR [07.05.2023 15:20:22] | This is an error message
+app42 CRITICAL [07.05.2023 15:20:22] | This is a critical message
+app42 ERROR [07.05.2023 15:20:22] | This is an exception message
+NoneType: None
+app42 DEBUG [07.05.2023 15:20:22] | This is a debug message
+app42 INFO [07.05.2023 15:20:22] | This is an info message
+app42 WARNING [07.05.2023 15:20:22] | This is a warning message
+app42 ERROR [07.05.2023 15:20:22] | This is an error message
+app42 CRITICAL [07.05.2023 15:20:22] | This is a critical message
+app42 ERROR [07.05.2023 15:20:22] | This is an exception message
+NoneType: None
+app42 DEBUG [07.05.2023 15:25:35] | This is a debug message
+app42 INFO [07.05.2023 15:25:35] | This is an info message
+app42 WARNING [07.05.2023 15:25:35] | This is a warning message
+app42 ERROR [07.05.2023 15:25:35] | This is an error message
+app42 CRITICAL [07.05.2023 15:25:35] | This is a critical message
+app42 ERROR [07.05.2023 15:25:35] | This is an exception message
+NoneType: None
+app42 DEBUG [07.05.2023 16:08:37] | This is a debug message
+app42 INFO [07.05.2023 16:08:37] | This is an info message
+app42 WARNING [07.05.2023 16:08:37] | This is a warning message
+app42 ERROR [07.05.2023 16:08:37] | This is an error message
+app42 CRITICAL [07.05.2023 16:08:37] | This is a critical message
+app42 ERROR [07.05.2023 16:08:37] | This is an exception message
+NoneType: None
+Debug message from application app41
+app41 DEBUG [07.05.2023 17:46:05] | Debug message from application app41
+app42 INFO [07.05.2023 18:48:36] | Info message from application app42
+app42 INFO [07.05.2023 18:49:48] | Info message from application app42
+app42 INFO [08.05.2023 00:17:38] | Info message from application app42
+app42 INFO [08.05.2023 00:19:19] | Info message from application app42
+app42 INFO [08.05.2023 00:20:49] | Info message from application app42
+app42 INFO [08.05.2023 00:44:34] | Info message from application app42
+app42 INFO [08.05.2023 00:53:36] | Info message from application app42
+app42 INFO [08.05.2023 01:27:50] | Info message from application app42
+app42 INFO [08.05.2023 01:44:17] | Info message from application app42
+app42 INFO [08.05.2023 01:53:06] | Info message from application app42
+app42 INFO [08.05.2023 01:56:49] | Info message from application app42
+app42 INFO [08.05.2023 02:04:28] | Info message from application app42
+app42 INFO [08.05.2023 02:10:31] | Info message from application app42
+app42 INFO [08.05.2023 02:27:32] | Info message from application app42
+app42 DEBUG [08.05.2023 03:49:55] | This is a debug message
+app42 INFO [08.05.2023 03:49:55] | This is an info message
+app42 WARNING [08.05.2023 03:49:55] | This is a warning message
+app42 ERROR [08.05.2023 03:49:55] | This is an error message
+app42 CRITICAL [08.05.2023 03:49:55] | This is a critical message
+app42 ERROR [08.05.2023 03:49:55] | This is an exception message
+NoneType: None
+app42 DEBUG [08.05.2023 03:50:14] | This is a debug message
+app42 INFO [08.05.2023 03:50:14] | This is an info message
+app42 WARNING [08.05.2023 03:50:14] | This is a warning message
+app42 ERROR [08.05.2023 03:50:14] | This is an error message
+app42 CRITICAL [08.05.2023 03:50:14] | This is a critical message
+app42 ERROR [08.05.2023 03:50:14] | This is an exception message
+NoneType: None
+app42 DEBUG [08.05.2023 03:50:14] | This is a debug message
+app42 DEBUG [08.05.2023 04:51:26] | This is a debug message
+app42 INFO [08.05.2023 04:51:26] | This is an info message
+app42 WARNING [08.05.2023 04:51:26] | This is a warning message
+app42 ERROR [08.05.2023 04:51:26] | This is an error message
+app42 CRITICAL [08.05.2023 04:51:26] | This is a critical message
+app42 ERROR [08.05.2023 04:51:26] | This is an exception message
+NoneType: None
+app42 DEBUG [08.05.2023 04:51:26] | This is a debug message
+app42 DEBUG [08.05.2023 04:54:59] | This is a debug message
+app42 INFO [08.05.2023 04:54:59] | This is an info message
+app42 WARNING [08.05.2023 04:54:59] | This is a warning message
+app42 ERROR [08.05.2023 04:54:59] | This is an error message
+app42 CRITICAL [08.05.2023 04:54:59] | This is a critical message
+app42 ERROR [08.05.2023 04:54:59] | This is an exception message
+NoneType: None
+app42 DEBUG [08.05.2023 05:08:35] | This is a debug message
+app42 INFO [08.05.2023 05:08:35] | This is an info message
+app42 WARNING [08.05.2023 05:08:35] | This is a warning message
+app42 ERROR [08.05.2023 05:08:35] | This is an error message
+app42 CRITICAL [08.05.2023 05:08:35] | This is a critical message
+app42 ERROR [08.05.2023 05:08:35] | This is an exception message
+NoneType: None
+app42 DEBUG [09.05.2023 16:20:14] | This is a debug message
+app42 INFO [09.05.2023 16:20:14] | This is an info message
+app42 WARNING [09.05.2023 16:20:14] | This is a warning message
+app42 ERROR [09.05.2023 16:20:14] | This is an error message
+app42 CRITICAL [09.05.2023 16:20:14] | This is a critical message
+app42 ERROR [09.05.2023 16:20:14] | This is an exception message
+NoneType: None
+app42 INFO [09.05.2023 17:37:19] | Info message from application app42

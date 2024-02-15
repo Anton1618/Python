@@ -7,7 +7,7 @@ def HTMLdecor(func):
     def inner(*args, **kwargs):
         return '<h1>\n' \
                f'{func(*args, **kwargs)}\n' \
-               f'</h1>\n'
+                f'</h1>\n'
     return inner
 
 
@@ -16,7 +16,7 @@ def HTMLdecorManualMeta(func):
     def inner(*args, **kwargs):
         return '<h1>\n' \
                f'{func(*args, **kwargs)}\n' \
-               f'</h1>\n'
+                f'</h1>\n'
     inner.__name__ = func.__name__
     inner.__doc__ = func.__doc__
     return inner
@@ -28,7 +28,7 @@ def HTMLdecorAutoMeta(func):
     def inner(*args, **kwargs):
         return '<h1>\n' \
                f'{func(*args, **kwargs)}\n' \
-               f'</h1>\n'
+                f'</h1>\n'
     return inner
 
 
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     print()
 
     print('По умолчанию, декорируемая функция теряет свои имя и документацию при декорировании\n'
-          'Вместо них будут применяться имя и документация замыкания декоратора')
+        'Вместо них будут применяться имя и документация замыкания декоратора')
     print(f'Документация замыкания: {func_without_meta.__doc__}')
     # None
     print(f'Имя замыкания: {func_without_meta.__name__}')
@@ -70,12 +70,3 @@ if __name__ == '__main__':
     print(f'Имя декорируемой функции: {func_with_auto_meta.__name__}')
     # SaleFunc
     print()
-
-
-
-
-
-
-
-
-
