@@ -1,0 +1,8 @@
+wheel
+setuptools
+mypy
+flake8
+requests
+ipython
+django
+beautifulsoup
