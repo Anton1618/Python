@@ -44,4 +44,6 @@ if __name__ == '__main__':
     assert get_suffix(121) == '121 год'
     assert get_suffix(122) == '122 года'
     assert get_suffix(125) == '125 лет'
-    print('Все тесты пройдены')
+
+
+    print('\n\n✅ Все тесты пройдены')

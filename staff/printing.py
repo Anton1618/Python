@@ -4,7 +4,7 @@ import functools
 import sys
 from io import StringIO
 
-def capture_stdout(func, strip='\n'):
+def capture_stdout(func, stripval='\n'):
     '''
     # Перехват вывода функции
     
@@ -41,8 +41,10 @@ def capture_stdout(func, strip='\n'):
         original_stdout = sys.stdout
         try:
             sys.stdout = captured_output
-            func(*args, **kwargs)
-            return captured_output.getvalue().strip('\n')
+            result = func(*args, **kwargs)
+            if result:
+                return captured_output.getvalue().strip(stripval), result
+            return captured_output.getvalue().strip(stripval)
         finally:
             sys.stdout = original_stdout
     return wrapper
