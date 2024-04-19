@@ -1,31 +1,37 @@
-'''Функция проверки переданных путей, на предмет соответствия sys.path, для возможности импортирования модулей'''
-from practice_functions.staff_functions import pretty_header
+'''
+Проверка путей, на возможность импорта или вызова модулей из них
+'''
 
-def check_mymodule_for_syspath(*target_paths) -> list[bool]:
-    '''
-    # Проверка путей на возможность импортирования
-    Проверка возможности вызова модулей из одного или множества переданных путей, благодаря вхождению во вложенные директории sys.path
+def check_path_from_syspath(*target_paths) -> list[bool]:
+    '''# Проверка путей, на возможность импорта или вызова модулей из них
+    
+    Функция проверяет директории, пути которых присутствуют в sys.path. Модули и другие директории, которые доступны при проверке считаются доступными для вызова и импортирования 
 
     Целевые пути для проверки добавляются ключами в словарь, где, изначально, значениями для этих ключей устанавливается False.
     При истинности проверки, значение False будет изменено на значение True
     
+
     ### Параметры:
     `target_paths`: одна или множество строк путей, например "C:\\Users\\your_name\\Desctop\\project42" или "/home/user/project42", "/home/user/project69"
+
 
     ### Возвращаемое значение:
     `[bool]`: список одного или множества булевых значений, соответствующих аргументам, в том порядке, в котором они были переданы
 
+
     ### Примеры:
     ```python
-    check_mymodule_for_syspath('C:\\Projects\\app42')  # [True]
-    check_mymodule_for_syspath('C:\\abracadabra')  # [False]
-    check_mymodule_for_syspath('C:\\Projects\\app42', 'C:\\abracadabra')  # [True, False]
+    check_path_from_syspath()  # []
+    check_path_from_syspath('C:\\Projects\\app42')  # [True]
+    check_path_from_syspath('C:\\abracadabra')  # [False]
+    check_path_from_syspath('C:\\Projects\\app42', 'C:\\abracadabra')  # [True, False]
     ```
     '''
     from sys import path as syspath
     from os import listdir
     
     target_dct = {path:False for path in target_paths}
+
     for next_sys_p in syspath:
         for target_p in target_paths:
             available_paths_lst = []
@@ -44,7 +50,8 @@ def check_mymodule_for_syspath(*target_paths) -> list[bool]:
 
 
 if __name__ == '__main__':
-    pretty_header('Примеры директорий sys.path')
+    print('===========================================================================')
+    print('Примеры директорий sys.path')
     syspath_example = ['C:\\Python312\\Scripts\\ipython.exe',
                         'C:\\GoogleDrive\\Python',
                         'C:\\Python312\\python312.zip',
@@ -56,7 +63,8 @@ if __name__ == '__main__':
     print(*syspath_example, sep='\n')
 
 
-    pretty_header('Примеры директорий для проверки')
+    print('===========================================================================')
+    print('Примеры директорий для проверки')
     target_paths = ('C:\\GoogleDrive\\Python\\module_json',
                     'C:\\GoogleDrive\\Python\\practice_import_modules\\myapp', 
                     'C:\\abracadabra', 
@@ -64,15 +72,18 @@ if __name__ == '__main__':
     print(*target_paths, sep='\n')
 
 
-    pretty_header('Проверка с передачей множества аргументов')
-    assert check_mymodule_for_syspath(*target_paths) == [True, True, False, False]
+    print('===========================================================================')
+    print('Проверка с передачей множества аргументов')
+    assert check_path_from_syspath(*target_paths) == [True, True, False, False]
 
 
-    pretty_header('Проверка с передачей аргументов по одному')
-    assert check_mymodule_for_syspath('C:\\GoogleDrive\\Python\\module_json') == [True]
-    assert check_mymodule_for_syspath('C:\\GoogleDrive\\Python\\practice_import_modules\\myapp') == [True]
-    assert check_mymodule_for_syspath('C:\\abracadabra') == [False]
-    assert check_mymodule_for_syspath('C:\\GoogleDrive\\abracadabra') == [False]
+    print('===========================================================================')
+    print('Проверка с передачей аргументов по одному')
+    assert check_path_from_syspath() == []
+    assert check_path_from_syspath('C:\\GoogleDrive\\Python\\module_json') == [True]
+    assert check_path_from_syspath('C:\\GoogleDrive\\Python\\practice_import_modules\\myapp') == [True]
+    assert check_path_from_syspath('C:\\abracadabra') == [False]
+    assert check_path_from_syspath('C:\\GoogleDrive\\abracadabra') == [False]
     
     
     print('\n\n✅ Все тесты пройдены')
