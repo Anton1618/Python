@@ -3,7 +3,7 @@
 - generator expression: (elm for elm in iterable).
 Генератор, вида представление коллекции, возвращает объект-генератор <genexpr>.
 
-- generator function: def func(): yield.
+- generator function: def func(): yield value.
 Пользовательская (генераторная) функция, в теле которой присутствует оператор yield
 '''
 
@@ -22,6 +22,8 @@ def pause():
         print(f'Значение переменной после yield: {value}')
     else:
         print('Завершение работы генератора')
+
+
 
 
 if __name__ == '__main__':

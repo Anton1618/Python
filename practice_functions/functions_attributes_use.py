@@ -26,8 +26,8 @@
 Целевой атрибут может быть присвоен вложенной функции, что позволит обращаться к нему напрямую и изменять при необходимости
 '''
 
-from staff import printing
 import time
+from practice_other.formatting import capture_stdout
 
 
 def metadata(attr):
@@ -71,8 +71,8 @@ def trottling_function(cooldown=1):
 
 if __name__ == '__main__':
     # Для expensive_computation применяется перехват вывода, из за чего в демонстрации возвращаемое значение представлено кортежем из двух элементов
-    expensive_computation = printing.capture_stdout(expensive_computation)
-    
+    expensive_computation = capture_stdout(expensive_computation)
+
     assert metadata('author') == 'Владимир Прохоров'
     assert metadata('version') == '0.1.6'
 
@@ -85,7 +85,7 @@ if __name__ == '__main__':
     assert expensive_computation(10)  ==  ('Производятся тяжелые вычисления', 100)
     assert expensive_computation(10) == ('', 100)
     assert expensive_computation(20)  == ('Производятся тяжелые вычисления', 400)
-    
+
 
     tr_func = trottling_function(5)
     assert tr_func() == 'Выполнение...'

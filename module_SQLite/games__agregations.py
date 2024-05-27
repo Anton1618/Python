@@ -1,15 +1,17 @@
 '''
-Различные SQL-функций
+# Создание, наполнение и агрегация БД `games.db`
 
-- Создание БД для демонстрации
+## Состав
+- Обновление состояния БД
 - Простая сортировка записей о призовых фондах для каждой игры
 - Группировка, подсчет числа дисциплин, получение суммы призового фонда и сортировка
 - Группировка, сортировка, сумма и среднее
 '''
 
 import sqlite3 as sq
+from practice_other.formatting import db_table_print
 
-DB_PATH = 'module_SQLite/game_matches.db'
+DB_PATH = 'module_SQLite/games.db'
 
 
 
@@ -54,12 +56,14 @@ with sq.connect(DB_PATH) as con:
                     FROM games
                     ORDER BY prize_fund
                     ''')
+    columns = cursor.description
+    data = cursor.fetchall()
 
-data = cursor.fetchall()
-for d in data:
-    print(*d, sep=': ')
-print('\n' * 4)
+# for d in data:
+#     print(*d, sep=': ')
+# print('\n' * 4)
 
+db_table_print(columns, data, 50)
 
 
 
@@ -73,12 +77,14 @@ with sq.connect(DB_PATH) as con:
                     GROUP BY game
                     ORDER BY sum DESC
                     ''')
+    columns = cursor.description
+    data = cursor.fetchall()
 
-data = cursor.fetchall()
-for d in data:
-    print(f'{d[0]} ({d[1]}): {d[2]}')
-print('\n' * 4)
+# for d in data:
+#     print(f'{d[0]} ({d[1]}): {d[2]}')
+# print('\n' * 4)
 
+db_table_print(columns, data, 50)
 
 
 
