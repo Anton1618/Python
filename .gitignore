@@ -1,9 +1,11 @@
-.idea
+.env
+*.db
 __pycache__
 .mypy_cache
 .vscode
+
+.idea
 test.py
 test2.py
 test3.py
 tmp
-*.db
